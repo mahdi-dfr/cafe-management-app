@@ -49,7 +49,7 @@ class MainNavigation extends StatelessWidget {
       items: _navBarsItems(),
       onItemSelected: (index) {},
       navBarHeight: 65,
-      padding: const EdgeInsets.only(top: 15, bottom: 4),
+      padding: EdgeInsets.zero,
       backgroundColor: AppColors.backgroundColor,
       navBarStyle: NavBarStyle.style12,
       hideNavigationBarWhenKeyboardAppears: true,

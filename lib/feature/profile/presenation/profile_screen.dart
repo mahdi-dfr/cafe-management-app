@@ -12,68 +12,51 @@ class ProfileScreen extends StatelessWidget {
     final ProfileController controller = Get.put(ProfileController());
 
     return Scaffold(
-      backgroundColor: AppColors.lightGrey,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
+        top: true,
+        bottom: false,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              // Header with gradient
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [AppColors.backgroundColor, AppColors.lightPurple],
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    // Profile Picture
-                    Obx(
-                      () => Hero(
-                        tag: 'profile_picture',
-                        child: GestureDetector(
-                          onTap: () {
-                            // TODO: Implement image picker
-                          },
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.white,
-                                width: 4,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.shadowColor,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: controller.user.value.profileImageUrl != null
-                                ? ClipOval(
-                                    child: Image.network(
-                                      controller.user.value.profileImageUrl!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.person,
-                                    size: 60,
-                                    color: AppColors.backgroundColor,
-                                  ),
+              SizedBox(height: 22),
+              Obx(
+                () => Hero(
+                  tag: 'profile_picture',
+                  child: GestureDetector(
+                    onTap: () {
+                      // TODO: Implement image picker
+                    },
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.white, width: 4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.shadowColor,
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
                           ),
-                        ),
+                        ],
                       ),
+                      child: controller.user.value.profileImageUrl != null
+                          ? ClipOval(
+                              child: Image.network(
+                                controller.user.value.profileImageUrl!,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Icon(
+                              Icons.person,
+                              size: 60,
+                              color: AppColors.backgroundColor,
+                            ),
                     ),
-                  ],
+                  ),
                 ),
               ),
               // Profile Content
@@ -141,7 +124,7 @@ class ProfileScreen extends StatelessWidget {
         ElevatedButton(
           onPressed: controller.toggleEditMode,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.backgroundColor,
+            backgroundColor: AppColors.lightPurple,
             foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             shape: RoundedRectangleBorder(
@@ -149,9 +132,13 @@ class ProfileScreen extends StatelessWidget {
             ),
             elevation: 0,
           ),
-          child: const Text(
+          child: Text(
             'Edit Profile',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppColors.primaryColor,
+            ),
           ),
         ),
       ],
@@ -270,7 +257,7 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        border: Border.all(width: 1, color: Colors.white),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -288,7 +275,7 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.backgroundColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: AppColors.backgroundColor, size: 24),
+            child: Icon(icon, color: AppColors.white, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -350,7 +337,7 @@ class ProfileScreen extends StatelessWidget {
           labelText: label,
           prefixIcon: Icon(
             icon,
-            color: enabled ? AppColors.backgroundColor : AppColors.textHint,
+            color: enabled ? AppColors.white : AppColors.textHint,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
