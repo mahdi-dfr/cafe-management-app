@@ -14,7 +14,7 @@ class TransactionDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryPurple,
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -22,10 +22,7 @@ class TransactionDetailScreen extends StatelessWidget {
         ),
         title: const Text(
           'Transaction Details',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
       ),
@@ -57,7 +54,9 @@ class TransactionDetailScreen extends StatelessWidget {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: _getStatusColor(transaction.status).withOpacity(0.15),
+                        color: _getStatusColor(
+                          transaction.status,
+                        ).withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -95,7 +94,9 @@ class TransactionDetailScreen extends StatelessWidget {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(transaction.status).withOpacity(0.15),
+                        color: _getStatusColor(
+                          transaction.status,
+                        ).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
@@ -184,10 +185,7 @@ class TransactionDetailScreen extends StatelessWidget {
           flex: 2,
           child: Text(
             label,
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.textSecondary,
-            ),
+            style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
           ),
         ),
         Expanded(
@@ -262,7 +260,7 @@ class TransactionDetailScreen extends StatelessWidget {
       'September',
       'October',
       'November',
-      'December'
+      'December',
     ];
     return '${months[date.month - 1]} ${date.day}, ${date.year}';
   }
@@ -274,5 +272,3 @@ class TransactionDetailScreen extends StatelessWidget {
     return '$hour:$minute';
   }
 }
-
-

@@ -4,39 +4,41 @@ class AppColors {
   AppColors._();
 
   // Primary Colors
-  static Color backgroundColor = const Color.fromARGB(255, 99, 2, 120);
-  static Color secondaryColor = const Color.fromARGB(255, 49, 158, 2);
+  static Color backgroundColor = const Color(0xff15130b);
+  static Color primaryColor = const Color(0xffdcc66e);
+  static Color secondaryColor = const Color(0xffd1c6a1);
+  static Color tertiaryColor = const Color(0xff4e472a);
+  // static Color tertiaryColor = const Color(0xff534600);
 
-  // Additional Colors
-  static Color primaryPurple = const Color.fromARGB(255, 99, 2, 120);
-  static Color primaryGreen = const Color.fromARGB(255, 49, 158, 2);
-  
+  /// on surfaces colors
+  static Color onPrimaryColor = const Color(0xffffffff);
+
   // Neutral Colors
   static Color white = Colors.white;
   static Color black = Colors.black;
   static Color grey = Colors.grey;
   static Color lightGrey = const Color(0xFFF5F5F5);
   static Color darkGrey = const Color(0xFF424242);
-  
+
   // Status Colors
   static Color success = const Color(0xFF4CAF50);
-  static Color warning = const Color(0xFFFF9800);
-  static Color error = const Color(0xFFF44336);
-  static Color info = const Color(0xFF2196F3);
-  
+  static Color warning = const Color(0xFFffb4ab);
+  static Color error = const Color(0xFF93000a);
+  static Color info = const Color(0xFFaad0b3);
+
   // Gradient Colors
-  static Color lightPurple = const Color(0xFFBA68C8);
-  static Color lightGreen = const Color(0xFF81C784);
-  
+  static Color lightPurple = const Color(0xFF534600);
+  static Color lightGreen = const Color(0xFF4e472a);
+
   // Text Colors
-  static Color textPrimary = const Color(0xFF212121);
-  static Color textSecondary = const Color(0xFF757575);
+  static Color textPrimary = Color(0xffe2e2e9);
+  static Color textSecondary = const Color(0xFFc4c6d0);
   static Color textHint = const Color(0xFF9E9E9E);
-  
+
   // Background Colors
-  static Color surfaceColor = Colors.white;
-  static Color cardBackground = Colors.white;
-  
+  static Color surfaceColor = Color(0xff2c4e38);
+  static Color cardBackground = Color(0xff1e1b13);
+
   // Shadow Colors
   static Color shadowColor = Colors.black.withOpacity(0.1);
 }

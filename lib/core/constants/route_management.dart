@@ -10,7 +10,7 @@ class RouteManagement {
 
   static final List<GetPage> routes = [
     GetPage(name: '/', page: () => const SplashScreen()),
-    GetPage(name: '/main', page: () => const MainNavigation()),
+    GetPage(name: '/main', page: () => MainNavigation()),
     GetPage(
       name: '/transaction-detail',
       page: () {

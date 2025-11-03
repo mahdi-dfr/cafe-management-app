@@ -25,71 +25,72 @@ class ProfileScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      AppColors.primaryPurple,
-                      AppColors.lightPurple,
-                    ],
+                    colors: [AppColors.backgroundColor, AppColors.lightPurple],
                   ),
                 ),
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
                     // Profile Picture
-                    Obx(() => Hero(
-                          tag: 'profile_picture',
-                          child: GestureDetector(
-                            onTap: () {
-                              // TODO: Implement image picker
-                            },
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
+                    Obx(
+                      () => Hero(
+                        tag: 'profile_picture',
+                        child: GestureDetector(
+                          onTap: () {
+                            // TODO: Implement image picker
+                          },
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
                                 color: AppColors.white,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: AppColors.white,
-                                  width: 4,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.shadowColor,
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ],
+                                width: 4,
                               ),
-                              child: controller.user.value.profileImageUrl != null
-                                  ? ClipOval(
-                                      child: Image.network(
-                                        controller.user.value.profileImageUrl!,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : Icon(
-                                      Icons.person,
-                                      size: 60,
-                                      color: AppColors.primaryPurple,
-                                    ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.shadowColor,
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
                             ),
+                            child: controller.user.value.profileImageUrl != null
+                                ? ClipOval(
+                                    child: Image.network(
+                                      controller.user.value.profileImageUrl!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : Icon(
+                                    Icons.person,
+                                    size: 60,
+                                    color: AppColors.backgroundColor,
+                                  ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
               // Profile Content
-              Obx(() => Container(
-                    margin: const EdgeInsets.only(top: 80),
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      children: [
-                        if (!controller.isEditing.value)
-                          _buildViewMode(controller)
-                        else
-                          _buildEditMode(controller),
-                      ],
-                    ),
-                  )),
+              Obx(
+                () => Container(
+                  margin: const EdgeInsets.only(top: 80),
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      if (!controller.isEditing.value)
+                        _buildViewMode(controller)
+                      else
+                        _buildEditMode(controller),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -113,10 +114,7 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           controller.user.value.email,
-          style: TextStyle(
-            fontSize: 16,
-            color: AppColors.textSecondary,
-          ),
+          style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 40),
         // User Info Cards
@@ -143,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
         ElevatedButton(
           onPressed: controller.toggleEditMode,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryPurple,
+            backgroundColor: AppColors.backgroundColor,
             foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             shape: RoundedRectangleBorder(
@@ -153,10 +151,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           child: const Text(
             'Edit Profile',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
         ),
       ],
@@ -209,56 +204,55 @@ class ProfileScreen extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: controller.cancelEdit,
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.primaryPurple,
+                  foregroundColor: AppColors.backgroundColor,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: AppColors.primaryPurple),
+                    side: BorderSide(color: AppColors.backgroundColor),
                   ),
                 ),
                 child: const Text(
                   'Cancel',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: Obx(() => ElevatedButton(
-                    onPressed: controller.isLoading.value
-                        ? null
-                        : controller.saveProfile,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryPurple,
-                      foregroundColor: AppColors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 0,
+              child: Obx(
+                () => ElevatedButton(
+                  onPressed: controller.isLoading.value
+                      ? null
+                      : controller.saveProfile,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.backgroundColor,
+                    foregroundColor: AppColors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: controller.isLoading.value
-                        ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.white,
-                              ),
-                            ),
-                          )
-                        : const Text(
-                            'Save',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                    elevation: 0,
+                  ),
+                  child: controller.isLoading.value
+                      ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColors.white,
                             ),
                           ),
-                  )),
+                        )
+                      : const Text(
+                          'Save',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                ),
+              ),
             ),
           ],
         ),
@@ -291,14 +285,10 @@ class ProfileScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.primaryPurple.withOpacity(0.1),
+              color: AppColors.backgroundColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(
-              icon,
-              color: AppColors.primaryPurple,
-              size: 24,
-            ),
+            child: Icon(icon, color: AppColors.backgroundColor, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -326,11 +316,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           if (isReadOnly)
-            Icon(
-              Icons.lock_outline,
-              color: AppColors.textHint,
-              size: 20,
-            ),
+            Icon(Icons.lock_outline, color: AppColors.textHint, size: 20),
         ],
       ),
     );
@@ -364,9 +350,7 @@ class ProfileScreen extends StatelessWidget {
           labelText: label,
           prefixIcon: Icon(
             icon,
-            color: enabled
-                ? AppColors.primaryPurple
-                : AppColors.textHint,
+            color: enabled ? AppColors.backgroundColor : AppColors.textHint,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -383,4 +367,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

@@ -8,8 +8,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.secondaryColor,
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light,
@@ -24,21 +24,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (context, child) {
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            systemNavigationBarColor: AppColors.backgroundColor,
+            systemNavigationBarIconBrightness: Brightness.light,
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness: Brightness.light,
+          ),
+          child: child!,
+        );
+      },
       title: 'Cafe App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        primaryColor: AppColors.primaryPurple,
+        primaryColor: AppColors.backgroundColor,
         scaffoldBackgroundColor: AppColors.lightGrey,
         appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.primaryPurple,
+          backgroundColor: AppColors.backgroundColor,
           foregroundColor: AppColors.white,
           elevation: 0,
           centerTitle: true,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: AppColors.white,
-          selectedItemColor: AppColors.primaryPurple,
+          selectedItemColor: AppColors.backgroundColor,
           unselectedItemColor: AppColors.textSecondary,
           elevation: 0,
         ),
@@ -62,12 +74,12 @@ class MyApp extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.primaryPurple, width: 2),
+            borderSide: BorderSide(color: AppColors.backgroundColor, width: 2),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryPurple,
+            backgroundColor: AppColors.backgroundColor,
             foregroundColor: AppColors.white,
             elevation: 0,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -98,11 +110,11 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: AppColors.textHint),
         ),
       ),
-      // Define routes
+      // // Define routes
       getPages: RouteManagement.routes,
-      // Set initial route
-      initialRoute: '/',
-      locale: const Locale('ir', 'IR'),
+
+      // // Set initial route
+      locale: const Locale('fa', 'IR'),
     );
   }
 }

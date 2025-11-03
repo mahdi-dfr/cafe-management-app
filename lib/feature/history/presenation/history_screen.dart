@@ -13,25 +13,20 @@ class HistoryScreen extends StatelessWidget {
     final HistoryController controller = Get.put(HistoryController());
 
     return Scaffold(
-      backgroundColor: AppColors.lightGrey,
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryPurple,
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         title: const Text(
           'Transaction History',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         centerTitle: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(
-              color: AppColors.primaryPurple,
-            ),
+            child: CircularProgressIndicator(color: AppColors.backgroundColor),
           );
         }
 
@@ -57,10 +52,7 @@ class HistoryScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   'Your transaction history will appear here',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.textHint,
-                  ),
+                  style: TextStyle(fontSize: 14, color: AppColors.textHint),
                 ),
               ],
             ),
@@ -71,14 +63,17 @@ class HistoryScreen extends StatelessWidget {
           onRefresh: () async {
             controller.loadTransactions();
           },
-          color: AppColors.primaryPurple,
-          child: ListView.builder(
+          color: AppColors.backgroundColor,
+          child: ListView.separated(
             padding: const EdgeInsets.all(16),
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: controller.transactions.length,
             itemBuilder: (context, index) {
               final transaction = controller.transactions[index];
               return _TransactionCard(transaction: transaction);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(height: 16);
             },
           ),
         );
@@ -99,109 +94,97 @@ class _TransactionCard extends StatelessWidget {
 
     return Hero(
       tag: 'transaction_${transaction.id}',
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () => controller.selectTransaction(transaction),
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.shadowColor,
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+      child: InkWell(
+        onTap: () => controller.selectTransaction(transaction),
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.tertiaryColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              // Status Icon
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: _getStatusColor(transaction.status).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ],
-            ),
-            child: Row(
-              children: [
-                // Status Icon
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: _getStatusColor(transaction.status).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    _getStatusIcon(transaction.status),
-                    color: _getStatusColor(transaction.status),
-                    size: 24,
-                  ),
+                child: Icon(
+                  _getStatusIcon(transaction.status),
+                  color: _getStatusColor(transaction.status),
+                  size: 24,
                 ),
-                const SizedBox(width: 15),
-                // Transaction Info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        transaction.title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _formatDate(transaction.date),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        transaction.category,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppColors.textHint,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Amount & Status
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+              ),
+              const SizedBox(width: 15),
+              // Transaction Info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '\$${transaction.amount.toStringAsFixed(2)}',
+                      transaction.title,
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: _getStatusColor(transaction.status),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
+                    const SizedBox(height: 4),
+                    Text(
+                      _formatDate(transaction.date),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textSecondary,
                       ),
-                      decoration: BoxDecoration(
-                        color: _getStatusColor(transaction.status).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        _getStatusText(transaction.status),
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: _getStatusColor(transaction.status),
-                        ),
-                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      transaction.category,
+                      style: TextStyle(fontSize: 12, color: AppColors.textHint),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              // Amount & Status
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '\$${transaction.amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: _getStatusColor(transaction.status),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _getStatusColor(
+                        transaction.status,
+                      ).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      _getStatusText(transaction.status),
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: _getStatusColor(transaction.status),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -266,4 +249,3 @@ class _TransactionCard extends StatelessWidget {
     }
   }
 }
-

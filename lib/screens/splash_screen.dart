@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../core/app_colors.dart';
 
-/// Splash screen with smooth animations
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     _setupAnimations();
     _navigateToHome();
   }
@@ -58,6 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _controller.dispose();
     super.dispose();
   }
@@ -71,9 +73,9 @@ class _SplashScreenState extends State<SplashScreen>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppColors.primaryPurple,
+              AppColors.backgroundColor,
               AppColors.lightPurple,
-              AppColors.primaryGreen,
+              AppColors.backgroundColor,
             ],
           ),
         ),
@@ -102,13 +104,13 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Icon(
                       Icons.local_cafe,
                       size: 80,
-                      color: AppColors.primaryPurple,
+                      color: AppColors.backgroundColor,
                     ),
                   ),
                   const SizedBox(height: 30),
                   // App Name
                   Text(
-                    'Cafe App',
+                    'Shooka',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -119,11 +121,14 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 15),
                   // Slogan
                   Text(
-                    'Your perfect cup, every time',
+                    'Coffee And Friends \nAre The Perfect Blend',
+                    textAlign: TextAlign.center,
+
                     style: TextStyle(
                       fontSize: 18,
+
                       color: AppColors.white.withOpacity(0.9),
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 50),
@@ -132,7 +137,9 @@ class _SplashScreenState extends State<SplashScreen>
                     width: 50,
                     height: 50,
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        AppColors.white,
+                      ),
                       strokeWidth: 3,
                     ),
                   ),
@@ -145,4 +152,3 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-

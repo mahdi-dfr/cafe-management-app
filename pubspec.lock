@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "1.0.8"
   dio:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dio
       sha256: d90ee57923d1828ac14e492ca49440f65477f4bb1263575900be731a3dac66a9
@@ -95,7 +95,7 @@ packages:
     source: hosted
     version: "5.0.0"
   flutter_svg:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_svg
       sha256: b9c2ad5872518a27507ab432d1fb97e8813b05f0fc693f9d40fad06d073e0678
@@ -108,7 +108,7 @@ packages:
     source: sdk
     version: "0.0.0"
   get:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: get
       sha256: c79eeb4339f1f3deffd9ec912f8a923834bec55f7b49c9e882b8fef2c139d425
@@ -212,7 +212,7 @@ packages:
     source: hosted
     version: "1.1.0"
   persistent_bottom_nav_bar:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: persistent_bottom_nav_bar
       sha256: "6aa9b97ced1abd92c90cedd1997d34ea0b35c3ded762ac6063baccc299b0c4c5"
@@ -228,7 +228,7 @@ packages:
     source: hosted
     version: "7.0.1"
   shimmer:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shimmer
       sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
