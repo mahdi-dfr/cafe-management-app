@@ -57,9 +57,9 @@ class UserModel {
   static UserModel getMockUser() {
     return UserModel(
       id: '1',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      mobileNumber: '+1 234-567-8900',
+      name: 'Mahdi Daneshfar',
+      email: 'test@example.com',
+      mobileNumber: '09122223344',
       profileImageUrl: null,
     );
   }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
 import 'profile_controller.dart';
+import 'widgets/profile_info_card.dart';
+import 'edit_profile_screen.dart';
 
-/// Profile screen with edit functionality
+/// Profile screen displaying user information
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -20,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(height: 22),
+              const SizedBox(height: 22),
               Obx(
                 () => Hero(
                   tag: 'profile_picture',
@@ -64,14 +66,7 @@ class ProfileScreen extends StatelessWidget {
                 () => Container(
                   margin: const EdgeInsets.only(top: 80),
                   padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      if (!controller.isEditing.value)
-                        _buildViewMode(controller)
-                      else
-                        _buildEditMode(controller),
-                    ],
-                  ),
+                  child: ProfileViewMode(controller: controller),
                 ),
               ),
             ],
@@ -80,49 +75,60 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  /// Build view mode UI
-  Widget _buildViewMode(ProfileController controller) {
+/// Profile view mode widget
+class ProfileViewMode extends StatelessWidget {
+  final ProfileController controller;
+
+  const ProfileViewMode({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         // Welcome Text
         Text(
-          '${controller.user.value.name}',
+          controller.user.value.name,
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
           ),
+          textDirection: TextDirection.rtl,
         ),
         const SizedBox(height: 8),
         Text(
           controller.user.value.email,
           style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
+          textDirection: TextDirection.ltr,
         ),
         const SizedBox(height: 40),
         // User Info Cards
-        _buildInfoCard(
+        ProfileInfoCard(
           icon: Icons.person_outline,
-          label: 'Full Name',
+          label: 'نام کامل',
           value: controller.user.value.name,
         ),
         const SizedBox(height: 16),
-        _buildInfoCard(
+        ProfileInfoCard(
           icon: Icons.email_outlined,
-          label: 'Email',
+          label: 'ایمیل',
           value: controller.user.value.email,
         ),
         const SizedBox(height: 16),
-        _buildInfoCard(
+        ProfileInfoCard(
           icon: Icons.phone_outlined,
-          label: 'Mobile Number',
+          label: 'شماره موبایل',
           value: controller.user.value.mobileNumber,
           isReadOnly: true,
         ),
         const SizedBox(height: 30),
         // Edit Button
         ElevatedButton(
-          onPressed: controller.toggleEditMode,
+          onPressed: () {
+            Get.to(() => const EditProfileScreen());
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.lightPurple,
             foregroundColor: AppColors.white,
@@ -133,7 +139,7 @@ class ProfileScreen extends StatelessWidget {
             elevation: 0,
           ),
           child: Text(
-            'Edit Profile',
+            'ویرایش پروفایل',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -142,215 +148,6 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  /// Build edit mode UI
-  Widget _buildEditMode(ProfileController controller) {
-    return Column(
-      children: [
-        // Edit Title
-        Text(
-          'Edit Profile',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
-          ),
-        ),
-        const SizedBox(height: 30),
-        // Name Input
-        _buildTextField(
-          controller: controller.nameController,
-          label: 'Full Name',
-          icon: Icons.person_outline,
-          keyboardType: TextInputType.name,
-        ),
-        const SizedBox(height: 20),
-        // Email Input
-        _buildTextField(
-          controller: controller.emailController,
-          label: 'Email',
-          icon: Icons.email_outlined,
-          keyboardType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 20),
-        // Mobile Input (Disabled)
-        _buildTextField(
-          controller: controller.mobileController,
-          label: 'Mobile Number',
-          icon: Icons.phone_outlined,
-          keyboardType: TextInputType.phone,
-          enabled: false,
-        ),
-        const SizedBox(height: 30),
-        // Action Buttons
-        Row(
-          children: [
-            Expanded(
-              child: OutlinedButton(
-                onPressed: controller.cancelEdit,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.backgroundColor,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: AppColors.backgroundColor),
-                  ),
-                ),
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Obx(
-                () => ElevatedButton(
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : controller.saveProfile,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.backgroundColor,
-                    foregroundColor: AppColors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: controller.isLoading.value
-                      ? SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              AppColors.white,
-                            ),
-                          ),
-                        )
-                      : const Text(
-                          'Save',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  /// Build info card widget
-  Widget _buildInfoCard({
-    required IconData icon,
-    required String label,
-    required String value,
-    bool isReadOnly = false,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Colors.white),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.backgroundColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: AppColors.white, size: 24),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (isReadOnly)
-            Icon(Icons.lock_outline, color: AppColors.textHint, size: 20),
-        ],
-      ),
-    );
-  }
-
-  /// Build text field widget
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required IconData icon,
-    TextInputType? keyboardType,
-    bool enabled = true,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: TextField(
-        controller: controller,
-        enabled: enabled,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          labelText: label,
-          prefixIcon: Icon(
-            icon,
-            color: enabled ? AppColors.white : AppColors.textHint,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: AppColors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
-        ),
-      ),
     );
   }
 }

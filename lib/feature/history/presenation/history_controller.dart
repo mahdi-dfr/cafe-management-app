@@ -38,17 +38,17 @@ class HistoryController extends GetxController {
     Get.toNamed('/transaction-detail', arguments: transaction);
   }
 
-  /// Get status color based on transaction status
+  /// Get status text based on transaction status
   String getStatusText(TransactionStatus status) {
     switch (status) {
       case TransactionStatus.completed:
-        return 'Completed';
+        return 'تکمیل شده';
       case TransactionStatus.pending:
-        return 'Pending';
+        return 'در انتظار';
       case TransactionStatus.failed:
-        return 'Failed';
+        return 'ناموفق';
       case TransactionStatus.cancelled:
-        return 'Cancelled';
+        return 'لغو شده';
     }
   }
 }

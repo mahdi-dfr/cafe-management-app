@@ -14,7 +14,7 @@ class MainNavigation extends StatelessWidget {
   );
 
   List<Widget> _buildScreens() {
-    return [HomeScreen(), HistoryScreen(), ProfileScreen()];
+    return [const HomeScreen(), const HistoryScreen(), const ProfileScreen()];
   }
 
   @override

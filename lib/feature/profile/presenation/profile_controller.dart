@@ -35,12 +35,10 @@ class ProfileController extends GetxController {
     mobileController.text = user.value.mobileNumber;
   }
 
-  /// Toggle edit mode
-  void toggleEditMode() {
-    isEditing.value = !isEditing.value;
-    if (isEditing.value) {
-      _initializeControllers();
-    }
+  /// Initialize edit mode (called when navigating to edit screen)
+  void initializeEditMode() {
+    isEditing.value = true;
+    _initializeControllers();
   }
 
   /// Save profile changes
@@ -50,8 +48,8 @@ class ProfileController extends GetxController {
     // Validate inputs
     if (nameController.text.trim().isEmpty) {
       Get.snackbar(
-        'Error',
-        'Name cannot be empty',
+        'خطا',
+        'نام نمی‌تواند خالی باشد',
         snackPosition: SnackPosition.BOTTOM,
       );
       isLoading.value = false;
@@ -61,8 +59,8 @@ class ProfileController extends GetxController {
     if (emailController.text.trim().isEmpty ||
         !GetUtils.isEmail(emailController.text.trim())) {
       Get.snackbar(
-        'Error',
-        'Please enter a valid email',
+        'خطا',
+        'لطفاً یک ایمیل معتبر وارد کنید',
         snackPosition: SnackPosition.BOTTOM,
       );
       isLoading.value = false;
@@ -83,11 +81,12 @@ class ProfileController extends GetxController {
       isEditing.value = false;
 
       Get.snackbar(
-        'Success',
-        'Profile updated successfully',
+        'موفقیت',
+        'پروفایل با موفقیت به‌روزرسانی شد',
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 2),
       );
+      Get.back();
     });
   }
 
@@ -95,5 +94,6 @@ class ProfileController extends GetxController {
   void cancelEdit() {
     _initializeControllers();
     isEditing.value = false;
+    Get.back();
   }
 }

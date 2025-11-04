@@ -121,12 +121,10 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 15),
                   // Slogan
                   Text(
-                    'Coffee And Friends \nAre The Perfect Blend',
+                    'قهوه و دوستان\nترکیب کاملی هستند',
                     textAlign: TextAlign.center,
-
                     style: TextStyle(
                       fontSize: 18,
-
                       color: AppColors.white.withOpacity(0.9),
                       fontWeight: FontWeight.bold,
                     ),

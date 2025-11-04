@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
 import '../../../models/transaction_model.dart';
+import 'widgets/transaction_detail_row.dart';
+import 'widgets/transaction_status_helper.dart';
+import 'widgets/date_formatter.dart';
 
 /// Transaction detail screen with hero animation
 class TransactionDetailScreen extends StatelessWidget {
@@ -12,7 +15,7 @@ class TransactionDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightGrey,
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
@@ -21,254 +24,191 @@ class TransactionDetailScreen extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         title: const Text(
-          'Transaction Details',
+          'جزئیات تراکنش',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            // Hero Transaction Card
-            Hero(
-              tag: 'transaction_${transaction.id}',
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(24),
+      body: SafeArea(
+        top: true,
+        bottom: false,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              // Hero Transaction Card
+              Hero(
+                tag: 'transaction_${transaction.id}',
+                child: Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: AppColors.cardBackground,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.shadowColor,
+                        blurRadius: 15,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      // Status Icon
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: TransactionStatusHelper.getStatusColor(
+                            transaction.status,
+                          ).withOpacity(0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          TransactionStatusHelper.getStatusIcon(
+                            transaction.status,
+                          ),
+                          color: TransactionStatusHelper.getStatusColor(
+                            transaction.status,
+                          ),
+                          size: 40,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Transaction Title
+                      Text(
+                        transaction.title,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary,
+                        ),
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      const SizedBox(height: 20),
+                      // Amount
+                      Text(
+                        '${transaction.amount.toStringAsFixed(2)} تومان',
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: TransactionStatusHelper.getStatusColor(
+                            transaction.status,
+                          ),
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
+                      const SizedBox(height: 20),
+                      // Status Badge
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: TransactionStatusHelper.getStatusColor(
+                            transaction.status,
+                          ).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          TransactionStatusHelper.getStatusText(
+                            transaction.status,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: TransactionStatusHelper.getStatusColor(
+                              transaction.status,
+                            ),
+                          ),
+                          textDirection: TextDirection.rtl,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Details Section
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: AppColors.cardBackground,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.shadowColor,
-                      blurRadius: 15,
-                      offset: const Offset(0, 5),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Status Icon
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: _getStatusColor(
-                          transaction.status,
-                        ).withOpacity(0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        _getStatusIcon(transaction.status),
-                        color: _getStatusColor(transaction.status),
-                        size: 40,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    // Transaction Title
                     Text(
-                      transaction.title,
+                      'اطلاعات تراکنش',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textPrimary,
                       ),
-                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                    ),
+                    const Divider(height: 30),
+                    TransactionDetailRow(
+                      label: 'شناسه تراکنش',
+                      value: transaction.id,
+                    ),
+                    const SizedBox(height: 16),
+                    TransactionDetailRow(
+                      label: 'دسته‌بندی',
+                      value: transaction.category,
+                    ),
+                    const SizedBox(height: 16),
+                    TransactionDetailRow(
+                      label: 'تاریخ',
+                      value: DateFormatter.formatDate(transaction.date),
+                    ),
+                    const SizedBox(height: 16),
+                    TransactionDetailRow(
+                      label: 'زمان',
+                      value: DateFormatter.formatTime(transaction.date),
                     ),
                     const SizedBox(height: 20),
-                    // Amount
+                    const Divider(),
+                    const SizedBox(height: 20),
                     Text(
-                      '\$${transaction.amount.toStringAsFixed(2)}',
+                      'توضیحات',
                       style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        color: _getStatusColor(transaction.status),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
                       ),
+                      textDirection: TextDirection.rtl,
                     ),
-                    const SizedBox(height: 20),
-                    // Status Badge
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
+                    const SizedBox(height: 8),
+                    Text(
+                      transaction.description,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textSecondary,
+                        height: 1.5,
                       ),
-                      decoration: BoxDecoration(
-                        color: _getStatusColor(
-                          transaction.status,
-                        ).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        _getStatusText(transaction.status),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: _getStatusColor(transaction.status),
-                        ),
-                      ),
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
                     ),
                   ],
                 ),
               ),
-            ),
-            // Details Section
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.shadowColor,
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Transaction Information',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  const Divider(height: 30),
-                  _buildDetailRow('Transaction ID', transaction.id),
-                  const SizedBox(height: 16),
-                  _buildDetailRow('Category', transaction.category),
-                  const SizedBox(height: 16),
-                  _buildDetailRow('Date', _formatDate(transaction.date)),
-                  const SizedBox(height: 16),
-                  _buildDetailRow('Time', _formatTime(transaction.date)),
-                  const SizedBox(height: 20),
-                  const Divider(),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Description',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    transaction.description,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.textSecondary,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
-  }
-
-  /// Build detail row widget
-  Widget _buildDetailRow(String label, String value) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 2,
-          child: Text(
-            label,
-            style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
-            ),
-            textAlign: TextAlign.end,
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// Get status color based on transaction status
-  Color _getStatusColor(TransactionStatus status) {
-    switch (status) {
-      case TransactionStatus.completed:
-        return AppColors.success;
-      case TransactionStatus.pending:
-        return AppColors.warning;
-      case TransactionStatus.failed:
-        return AppColors.error;
-      case TransactionStatus.cancelled:
-        return AppColors.grey;
-    }
-  }
-
-  /// Get status icon based on transaction status
-  IconData _getStatusIcon(TransactionStatus status) {
-    switch (status) {
-      case TransactionStatus.completed:
-        return Icons.check_circle;
-      case TransactionStatus.pending:
-        return Icons.pending;
-      case TransactionStatus.failed:
-        return Icons.error;
-      case TransactionStatus.cancelled:
-        return Icons.cancel;
-    }
-  }
-
-  /// Get status text based on transaction status
-  String _getStatusText(TransactionStatus status) {
-    switch (status) {
-      case TransactionStatus.completed:
-        return 'Completed';
-      case TransactionStatus.pending:
-        return 'Pending';
-      case TransactionStatus.failed:
-        return 'Failed';
-      case TransactionStatus.cancelled:
-        return 'Cancelled';
-    }
-  }
-
-  /// Format date to readable string
-  String _formatDate(DateTime date) {
-    final months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
-  }
-
-  /// Format time to readable string
-  String _formatTime(DateTime date) {
-    final hour = date.hour.toString().padLeft(2, '0');
-    final minute = date.minute.toString().padLeft(2, '0');
-    return '$hour:$minute';
   }
 }
