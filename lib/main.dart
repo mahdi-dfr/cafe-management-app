@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Cafe App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Shabnam',
         useMaterial3: true,
         primaryColor: AppColors.backgroundColor,
         scaffoldBackgroundColor: AppColors.lightGrey,
