@@ -12,26 +12,26 @@ class QuickStatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Row(
+    return Row(
         children: [
           Expanded(
             child: StatCard(
-              title: 'کل سفارشات',
-              value: controller.totalOrders.value.toString(),
+              title: 'مدیریت پرسنل',
+              value: Icons.group,
               color: AppColors.backgroundColor,
             ),
           ),
           const SizedBox(width: 15),
           Expanded(
             child: StatCard(
-              title: 'این ماه',
-              value: controller.monthlyOrders.value.toString(),
+              title: 'انبار داری',
+              value: Icons.warehouse,
               color: AppColors.backgroundColor,
             ),
           ),
         ],
-      ),
-    );
+      );
+
+
   }
 }

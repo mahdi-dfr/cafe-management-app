@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
-import '../../../models/transaction_model.dart';
 import 'home_controller.dart';
 import 'widgets/welcome_section.dart';
 import 'widgets/quick_stats_section.dart';
@@ -32,8 +32,9 @@ class HomeScreen extends StatelessWidget {
               QuickStatsSection(controller: controller),
               const SizedBox(height: 30),
               const QuickActionsSection(),
-              const SizedBox(height: 30),
-              const RecentActivitySection(),
+              const SizedBox(height: 90),
+              PromoSlider()
+              // const RecentActivitySection(),
             ],
           ),
         ),
@@ -41,3 +42,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+

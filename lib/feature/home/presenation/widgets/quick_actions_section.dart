@@ -27,7 +27,7 @@ class QuickActionsSection extends StatelessWidget {
               child: ActionCard(
                 icon: Icons.local_cafe,
                 title: 'سفارش الان',
-                color: AppColors.backgroundColor,
+                color: AppColors.info,
               ),
             ),
             const SizedBox(width: 15),
@@ -35,7 +35,7 @@ class QuickActionsSection extends StatelessWidget {
               child: ActionCard(
                 icon: Icons.card_giftcard,
                 title: 'کارت هدیه',
-                color: AppColors.backgroundColor,
+                color: AppColors.info,
               ),
             ),
             const SizedBox(width: 15),

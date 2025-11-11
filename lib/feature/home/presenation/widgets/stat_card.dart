@@ -11,7 +11,7 @@ class StatCard extends StatelessWidget {
   });
 
   final String title;
-  final String value;
+  final IconData value;
   final Color color;
 
   @override
@@ -31,17 +31,9 @@ class StatCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-            textDirection: TextDirection.rtl,
-          ),
+          Icon(value, color: AppColors.secondaryColor, size: 35,),
           const SizedBox(height: 5),
           Text(
             title,
@@ -53,3 +45,7 @@ class StatCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
