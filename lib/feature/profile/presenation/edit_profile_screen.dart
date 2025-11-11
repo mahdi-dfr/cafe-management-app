@@ -74,13 +74,11 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ),
               // Edit Content
-              Obx(
-                () => Container(
+               Container(
                   margin: const EdgeInsets.only(top: 80),
                   padding: const EdgeInsets.all(24),
                   child: EditProfileForm(controller: controller),
                 ),
-              ),
             ],
           ),
         ),

@@ -4,7 +4,6 @@ import '../../../core/app_colors.dart';
 import '../../../models/transaction_model.dart';
 import 'widgets/transaction_detail_row.dart';
 import 'widgets/transaction_status_helper.dart';
-import 'widgets/date_formatter.dart';
 
 /// Transaction detail screen with hero animation
 class TransactionDetailScreen extends StatelessWidget {
@@ -171,12 +170,12 @@ class TransactionDetailScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     TransactionDetailRow(
                       label: 'تاریخ',
-                      value: DateFormatter.formatDate(transaction.date),
+                      value: 'test',
                     ),
                     const SizedBox(height: 16),
                     TransactionDetailRow(
                       label: 'زمان',
-                      value: DateFormatter.formatTime(transaction.date),
+                      value: 'test',
                     ),
                     const SizedBox(height: 20),
                     const Divider(),

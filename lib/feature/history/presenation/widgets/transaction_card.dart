@@ -4,7 +4,6 @@ import '../../../../core/app_colors.dart';
 import '../../../../models/transaction_model.dart';
 import '../history_controller.dart';
 import 'transaction_status_helper.dart';
-import 'date_formatter.dart';
 
 /// Transaction card widget
 class TransactionCard extends StatelessWidget {
@@ -64,7 +63,7 @@ class TransactionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      DateFormatter.formatDateForHistory(transaction.date),
+                      'test',
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.textSecondary,

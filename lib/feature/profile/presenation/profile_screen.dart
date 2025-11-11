@@ -62,13 +62,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               // Profile Content
-              Obx(
-                () => Container(
+               Container(
                   margin: const EdgeInsets.only(top: 80),
                   padding: const EdgeInsets.all(24),
                   child: ProfileViewMode(controller: controller),
                 ),
-              ),
             ],
           ),
         ),
