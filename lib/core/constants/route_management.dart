@@ -8,9 +8,13 @@ import '../../screens/main_navigation.dart';
 class RouteManagement {
   RouteManagement._();
 
+  static String splashScreen = '/';
+  static String mainNavigation = '/main';
+  static String transactionDetail = '/transaction-detail';
+
   static final List<GetPage> routes = [
-    GetPage(name: '/', page: () => const SplashScreen()),
-    GetPage(name: '/main', page: () => MainNavigation()),
+    GetPage(name: splashScreen, page: () => const SplashScreen()),
+    GetPage(name: mainNavigation, page: () => MainNavigation()),
     GetPage(
       name: '/transaction-detail',
       page: () {

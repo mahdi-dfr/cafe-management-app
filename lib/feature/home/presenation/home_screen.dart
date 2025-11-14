@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 30),
               const QuickActionsSection(),
               const SizedBox(height: 90),
-              PromoSlider()
+              const PromoSlider()
               // const RecentActivitySection(),
             ],
           ),

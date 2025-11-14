@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../core/app_colors.dart';
 import '../core/assets_route.dart';
 
@@ -13,8 +14,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _logoController;
 
@@ -22,8 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _logoScale;
   late Animation<double> _logoGlow;
 
-  final String _fullText = "Caffe And Friends\nAre The Perfect Blend";
-  String _visibleText = "";
+  // final String _fullText = "Caffe And Friends\nAre The Perfect Blend";
 
   @override
   void initState() {
@@ -35,20 +34,19 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _setupAnimations() {
     // Fade in background
-    _fadeController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    _fadeAnimation =
-        CurvedAnimation(parent: _fadeController, curve: Curves.easeIn);
+    _fadeController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _fadeAnimation = CurvedAnimation(parent: _fadeController, curve: Curves.easeIn);
 
     // Logo bounce + glow
-    _logoController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    _logoScale = Tween<double>(begin: 0.7, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.elasticOut),
-    );
-    _logoGlow = Tween<double>(begin: 0.0, end: 15.0).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.easeInOut),
-    );
+    _logoController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _logoScale = Tween<double>(
+      begin: 0.7,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _logoController, curve: Curves.elasticOut));
+    _logoGlow = Tween<double>(
+      begin: 0.0,
+      end: 15.0,
+    ).animate(CurvedAnimation(parent: _logoController, curve: Curves.easeInOut));
   }
 
   void _startSequence() async {
@@ -56,25 +54,27 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 400));
     _logoController.forward();
     await Future.delayed(const Duration(milliseconds: 800));
-    _animateText();
+    // _animateText();
+    await Future.delayed(const Duration(seconds: 2));
+    _navigateToHome();
   }
 
   /// text animation
-  void _animateText() {
-    int index = 0;
-    Timer.periodic(const Duration(milliseconds: 50), (timer) {
-      if (index < _fullText.length) {
-        setState(() {
-          _visibleText += _fullText[index];
-        });
-        index++;
-      } else {
-        timer.cancel();
-
-        Future.delayed(const Duration(microseconds: 10), _navigateToHome);
-      }
-    });
-  }
+  // void _animateText() {
+  //   int index = 0;
+  //   Timer.periodic(const Duration(milliseconds: 50), (timer) {
+  //     if (index < _fullText.length) {
+  //       setState(() {
+  //         _visibleText += _fullText[index];
+  //       });
+  //       index++;
+  //     } else {
+  //       timer.cancel();
+  //
+  //       Future.delayed(const Duration(microseconds: 10), _navigateToHome);
+  //     }
+  //   });
+  // }
 
   void _navigateToHome() {
     Get.offAllNamed('/main');
@@ -98,69 +98,71 @@ class _SplashScreenState extends State<SplashScreen>
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                AppColors.backgroundColor,
-                AppColors.tertiaryColor.withOpacity(0.9),
-                AppColors.primaryColor.withOpacity(0.6),
-              ],
+              colors: [AppColors.splashBackground, AppColors.splashBackground2],
             ),
           ),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedBuilder(
-                  animation: _logoController,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _logoScale.value,
-                      child: Container(
-                        padding: const EdgeInsets.all(28),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.primaryColor
-                                  .withOpacity(0.5 + (_logoGlow.value / 30)),
-                              blurRadius: _logoGlow.value,
-                              spreadRadius: _logoGlow.value / 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 70),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _logoController,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _logoScale.value,
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            padding: const EdgeInsets.all(60),
+                            decoration: BoxDecoration(
+                              color: AppColors.splashForeground,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12.withValues(alpha: 0.3),
+                                  blurRadius: _logoGlow.value,
+                                  spreadRadius: _logoGlow.value / 3,
+                                ),
+                              ],
                             ),
-                          ],
+                            child: SvgPicture.asset(
+                              AssetsRoute.mainLogo,
+                              width: 80,
+                              color: AppColors.secondaryColor,
+                            ),
+                          ),
                         ),
-                        child: SvgPicture.asset(
-                          AssetsRoute.mainLogo,
-                          width: 90,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 30),
-                SvgPicture.asset(AssetsRoute.shookaLogo, width: 95, color: Colors.white,),
-                const SizedBox(height: 25),
-                AnimatedOpacity(
-                  opacity: _visibleText.isNotEmpty ? 1 : 0,
-                  duration: const Duration(milliseconds: 500),
-                  child: Text(
-                    _visibleText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: AppColors.primaryColor.withOpacity(0.9),
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                      height: 1.4,
-                    ),
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(height: 60),
-                if (_visibleText.length < _fullText.length)
-                  CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
-                    strokeWidth: 3,
+                  SizedBox(height: 40,),
+                  SvgPicture.asset(
+                    AssetsRoute.shookaLogo,
+                    width: 140,
+                    colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                   ),
-              ],
+                  // AnimatedOpacity(
+                  //   opacity: _visibleText.isNotEmpty ? 1 : 0,
+                  //   duration: const Duration(milliseconds: 500),
+                  //   child: Text(
+                  //     _visibleText,
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       color: AppColors.primaryColor.withOpacity(0.9),
+                  //       fontWeight: FontWeight.bold,
+                  //       letterSpacing: 1.2,
+                  //       height: 1.4,
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(height: 85),
+                  LoadingAnimationWidget.threeRotatingDots(color: AppColors.secondaryColor, size: 50)
+
+                ],
+              ),
             ),
           ),
         ),

@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
+  /// splash screen colors
+  static Color splashBackground = const Color(0xff412E22);
+  static Color splashBackground2 = const Color(0xff3b2a1f);
+  static Color splashForeground = const Color(0xff392A20);
+
   // Primary Colors
   static Color backgroundColor = const Color(0xff15130b);
   static Color primaryColor = const Color(0xffdcc66e);
