@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/app_colors.dart';
+import '../emploee_management.dart';
 import '../home_controller.dart';
 import 'stat_card.dart';
 
@@ -18,7 +19,7 @@ class QuickStatsSection extends StatelessWidget {
             child: StatCard(
               title: 'مدیریت پرسنل',
               value: Icons.group,
-              color: AppColors.backgroundColor,
+              color: AppColors.backgroundColor, onTap: () { Get.to(OurTeamList()); },
             ),
           ),
           const SizedBox(width: 15),
@@ -26,7 +27,7 @@ class QuickStatsSection extends StatelessWidget {
             child: StatCard(
               title: 'انبار داری',
               value: Icons.warehouse,
-              color: AppColors.backgroundColor,
+              color: AppColors.backgroundColor, onTap: () {  },
             ),
           ),
         ],

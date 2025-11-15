@@ -1,0 +1,5 @@
+class AppConstants{
+  AppConstants._();
+
+  static String img = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAi-zvYSn8jLcnT_czJuPfBfe6aWgWbR04AQjaE67CMV7oJEkRuxjMctW_h5ZC8LKnhRpAWr6qbAnzkr7TzOWPvw48whW_8esAPtjAhJ3M81rykWTizxIoOMzO-9cVGMF_x0eQPpa0aZtKakMW_NKytTd5V9ksOAoz0mrRisHQxStuEWrxxLR76coK5F4wJik0cDCjRz3AW7gb5Y03Eb6ud9codG0npafe3SJlgv_ryVh-8SlUmg9NlOPD7RvHV62P1cRqO5iseZ7Y';
+}

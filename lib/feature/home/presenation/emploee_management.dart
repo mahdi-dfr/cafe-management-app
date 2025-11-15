@@ -1,6 +1,38 @@
 import 'dart:ui';
 
+import 'package:cafe_app/core/app_colors.dart';
+import 'package:cafe_app/feature/home/presenation/widgets/personnel_item.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/constants/constantw.dart';
+
+class OurTeamList extends StatelessWidget {
+  const OurTeamList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12.0,
+              crossAxisSpacing: 12.0,
+              childAspectRatio: 0.95,
+            ),
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return PersonnelCard(name: 'Mahdi Daneshfar', avatarUrl: AppConstants.img, onTap: () {  },);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class StaffProfilePage extends StatefulWidget {
   const StaffProfilePage({super.key});
@@ -9,19 +41,16 @@ class StaffProfilePage extends StatefulWidget {
   State<StaffProfilePage> createState() => _StaffProfilePageState();
 }
 
-class _StaffProfilePageState extends State<StaffProfilePage>
-    with SingleTickerProviderStateMixin {
+class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerProviderStateMixin {
   int _selectedTabIndex = 0;
   late final AnimationController _animController;
 
-  final String profileImage =
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAi-zvYSn8jLcnT_czJuPfBfe6aWgWbR04AQjaE67CMV7oJEkRuxjMctW_h5ZC8LKnhRpAWr6qbAnzkr7TzOWPvw48whW_8esAPtjAhJ3M81rykWTizxIoOMzO-9cVGMF_x0eQPpa0aZtKakMW_NKytTd5V9ksOAoz0mrRisHQxStuEWrxxLR76coK5F4wJik0cDCjRz3AW7gb5Y03Eb6ud9codG0npafe3SJlgv_ryVh-8SlUmg9NlOPD7RvHV62P1cRqO5iseZ7Y';
+  final String profileImage = AppConstants.img;
 
   @override
   void initState() {
     super.initState();
-    _animController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
+    _animController = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
     _animController.forward();
   }
 
@@ -70,29 +99,33 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                 : const Color(0xFFD4BBA5).withOpacity(0.4),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.brown[900]
-                  : Colors.brown[900]),
+          child: Icon(
+            icon,
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.brown[900] : Colors.brown[900],
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.brown[900],
-                      fontWeight: FontWeight.w700)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.brown[900],
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(subtitle,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? const Color(0xFFD4BBA5)
-                          : Colors.brown[600],
-                      fontSize: 13)),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? const Color(0xFFD4BBA5)
+                      : Colors.brown[600],
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
         ),
@@ -127,15 +160,19 @@ class _StaffProfilePageState extends State<StaffProfilePage>
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: days.length,
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, mainAxisSpacing: 6, crossAxisSpacing: 6),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 7,
+            mainAxisSpacing: 6,
+            crossAxisSpacing: 6,
+          ),
           itemBuilder: (context, idx) {
             final val = days[idx];
             // mark special days 3,9,10,16 like screenshot
             final isCircle = val == 3 || val == 9 || val == 16;
             final isPrimary = val == 10;
-            final textColor =
-            Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.brown[900];
+            final textColor = Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.brown[900];
             if (val == null) {
               return const SizedBox();
             }
@@ -144,10 +181,19 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                 decoration: BoxDecoration(
                   color: const Color(0xFFD47311), // primary orange
                   shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: Colors.deepOrange.withOpacity(0.25), blurRadius: 6, offset: const Offset(0, 4))],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.deepOrange.withOpacity(0.25),
+                      blurRadius: 6,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 alignment: Alignment.center,
-                child: Text('$val', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                child: Text(
+                  '$val',
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                ),
               );
             } else if (isCircle) {
               return Container(
@@ -158,7 +204,10 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
-                child: Text('$val', style: TextStyle(color: textColor, fontWeight: FontWeight.w600)),
+                child: Text(
+                  '$val',
+                  style: TextStyle(color: textColor, fontWeight: FontWeight.w600),
+                ),
               );
             } else {
               return Center(
@@ -193,15 +242,19 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.arrow_back,
-                              color: isDark ? Colors.white : Colors.brown[900])),
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.brown[900]),
+                      ),
                       const Spacer(),
-                      Text('Staff Profile', style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w700)),
+                      Text(
+                        'Staff Profile',
+                        style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
                       const Spacer(),
                       IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.more_vert, color: isDark ? Colors.white : Colors.brown[900])),
+                        onPressed: () {},
+                        icon: Icon(Icons.more_vert, color: isDark ? Colors.white : Colors.brown[900]),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -213,7 +266,13 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                         height: 110,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 12, offset: const Offset(0, 8))],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 12,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
                         child: CircleAvatar(
                           radius: 55,
@@ -222,7 +281,10 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Text('Alex Doe', style: TextStyle(color: headerTextColor, fontSize: 22, fontWeight: FontWeight.w800)),
+                      Text(
+                        'Alex Doe',
+                        style: TextStyle(color: headerTextColor, fontSize: 22, fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 4),
                       Text('Head Barista', style: TextStyle(color: subTextColor, fontSize: 15)),
                     ],
@@ -249,92 +311,140 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                     duration: const Duration(milliseconds: 350),
                     child: _selectedTabIndex == 0
                         ? Column(
-                      key: const ValueKey('info'),
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // Personal Details Card
-                        glassCard(
-                          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            key: const ValueKey('info'),
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text('Personal Details',
-                                  style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w800)),
-                              const SizedBox(height: 12),
-                              _twoColumnRow('Phone', '+1 (555) 123-4567', subTextColor!, headerTextColor!),
-                              const Divider(color: Color(0xFFBBAA99), height: 18),
-                              _twoColumnRow('Email', 'alex.doe@example.com', subTextColor!, headerTextColor!),
-                              const Divider(color: Color(0xFFBBAA99), height: 18),
-                              _twoColumnRow('Age', '28 years old', subTextColor!, headerTextColor!),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                        // Work History timeline card
-                        glassCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Work History', style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w800)),
+                              // Personal Details Card
+                              glassCard(
+                                padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Personal Details',
+                                      style: TextStyle(
+                                        color: headerTextColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    _twoColumnRow(
+                                      'Phone',
+                                      '+1 (555) 123-4567',
+                                      subTextColor!,
+                                      headerTextColor!,
+                                    ),
+                                    const Divider(color: Color(0xFFBBAA99), height: 18),
+                                    _twoColumnRow(
+                                      'Email',
+                                      'alex.doe@example.com',
+                                      subTextColor!,
+                                      headerTextColor!,
+                                    ),
+                                    const Divider(color: Color(0xFFBBAA99), height: 18),
+                                    _twoColumnRow('Age', '28 years old', subTextColor!, headerTextColor!),
+                                  ],
+                                ),
+                              ),
                               const SizedBox(height: 14),
-                              // vertical line + items
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // timeline line
-                                  Column(
-                                    children: [
-                                      Container(width: 2, height: 8, color: Colors.transparent),
-                                      Container(width: 2, height: 60, color: const Color(0xFFD4BBA5).withOpacity(0.25)),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
+                              // Work History timeline card
+                              glassCard(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Work History',
+                                      style: TextStyle(
+                                        color: headerTextColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 14),
+                                    // vertical line + items
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        timelineItem(Icons.flag, 'Hired', 'October 15, 2021'),
-                                        const SizedBox(height: 12),
-                                        timelineItem(Icons.star, 'Promoted to Head Barista', 'July 22, 2023'),
+                                        // timeline line
+                                        Column(
+                                          children: [
+                                            Container(width: 2, height: 8, color: Colors.transparent),
+                                            Container(
+                                              width: 2,
+                                              height: 60,
+                                              color: const Color(0xFFD4BBA5).withOpacity(0.25),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              timelineItem(Icons.flag, 'Hired', 'October 15, 2021'),
+                                              const SizedBox(height: 12),
+                                              timelineItem(
+                                                Icons.star,
+                                                'Promoted to Head Barista',
+                                                'July 22, 2023',
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                        // Off-Days calendar card
-                        glassCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Off-Days', style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w800)),
-                                  Text('October 2024', style: TextStyle(color: subTextColor, fontWeight: FontWeight.w600)),
-                                ],
+                              const SizedBox(height: 14),
+                              // Off-Days calendar card
+                              glassCard(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Off-Days',
+                                          style: TextStyle(
+                                            color: headerTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                        Text(
+                                          'October 2024',
+                                          style: TextStyle(color: subTextColor, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 12),
+                                    calendarGrid(),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(height: 12),
-                              calendarGrid(),
+                              const SizedBox(height: 90),
                             ],
-                          ),
-                        ),
-                        const SizedBox(height: 90),
-                      ],
-                    )
+                          )
                         : _selectedTabIndex == 1
                         ? Container(
-                      key: const ValueKey('resp'),
-                      padding: const EdgeInsets.all(30),
-                      child: Center(child: Text('Responsibilities (placeholder)', style: TextStyle(color: headerTextColor))),
-                    )
+                            key: const ValueKey('resp'),
+                            padding: const EdgeInsets.all(30),
+                            child: Center(
+                              child: Text(
+                                'Responsibilities (placeholder)',
+                                style: TextStyle(color: headerTextColor),
+                              ),
+                            ),
+                          )
                         : Container(
-                      key: const ValueKey('notes'),
-                      padding: const EdgeInsets.all(30),
-                      child: Center(child: Text('Notes (placeholder)', style: TextStyle(color: headerTextColor))),
-                    ),
+                            key: const ValueKey('notes'),
+                            padding: const EdgeInsets.all(30),
+                            child: Center(
+                              child: Text('Notes (placeholder)', style: TextStyle(color: headerTextColor)),
+                            ),
+                          ),
                   ),
                 ],
               ),
@@ -370,17 +480,22 @@ class _StaffProfilePageState extends State<StaffProfilePage>
           height: 44,
           decoration: BoxDecoration(
             color: active
-                ? (isDark ? const Color(0xFFD4BBA5).withOpacity(0.18) : const Color(0xFFD4BBA5).withOpacity(0.35))
+                ? (isDark
+                      ? const Color(0xFFD4BBA5).withOpacity(0.18)
+                      : const Color(0xFFD4BBA5).withOpacity(0.35))
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(22),
           ),
           alignment: Alignment.center,
-          child: Text(title,
-              style: TextStyle(
-                  color: active
-                      ? (isDark ? Colors.white : Colors.brown[900])
-                      : (isDark ? const Color(0xFFD4BBA5) : Colors.brown[400]),
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: active
+                  ? (isDark ? Colors.white : Colors.brown[900])
+                  : (isDark ? const Color(0xFFD4BBA5) : Colors.brown[400]),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ),
     );
@@ -391,11 +506,15 @@ class _StaffProfilePageState extends State<StaffProfilePage>
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Expanded(child: Text(left, style: TextStyle(color: leftColor, fontSize: 14))),
-          Text(right, style: TextStyle(color: rightColor, fontSize: 14, fontWeight: FontWeight.w600)),
+          Expanded(
+            child: Text(left, style: TextStyle(color: leftColor, fontSize: 14)),
+          ),
+          Text(
+            right,
+            style: TextStyle(color: rightColor, fontSize: 14, fontWeight: FontWeight.w600),
+          ),
         ],
       ),
     );
   }
 }
-

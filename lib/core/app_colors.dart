@@ -9,7 +9,7 @@ class AppColors {
   static Color splashForeground = const Color(0xff392A20);
 
   // Primary Colors
-  static Color backgroundColor = const Color(0xff15130b);
+  static Color backgroundColor = const Color(0xff211910);
   static Color primaryColor = const Color(0xffdcc66e);
   static Color secondaryColor = const Color(0xffd1c6a1);
   static Color tertiaryColor = const Color(0xff4e472a);
@@ -42,7 +42,7 @@ class AppColors {
 
   // Background Colors
   static Color surfaceColor = Color(0xff2c4e38);
-  static Color cardBackground = Color(0xff1e1b13);
+    static Color cardBackground = Color(0xff2D2319);
 
   // Shadow Colors
   static Color shadowColor = Colors.black.withOpacity(0.1);

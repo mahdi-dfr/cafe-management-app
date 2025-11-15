@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
 import '../../../../core/app_colors.dart';
 
-/// Stat card widget
 class StatCard extends StatelessWidget {
   const StatCard({
     super.key,
     required this.title,
     required this.value,
     required this.color,
+    required this.onTap,
   });
 
   final String title;
   final IconData value;
   final Color color;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
+    return Material(
+      color: AppColors.cardBackground,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+        onTap: onTap,
+        hoverColor: color.withOpacity(0.1),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(value, color: AppColors.secondaryColor, size: 35),
+              const SizedBox(height: 5),
+              Text(
+                title,
+                style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                textDirection: TextDirection.rtl,
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(value, color: AppColors.secondaryColor, size: 35,),
-          const SizedBox(height: 5),
-          Text(
-            title,
-            style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-            textDirection: TextDirection.rtl,
-          ),
-        ],
+        ),
       ),
     );
   }
 }
-
-
-
-
