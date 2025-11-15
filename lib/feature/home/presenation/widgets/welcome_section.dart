@@ -11,7 +11,7 @@ class WelcomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'خوش آمدید! 👋',
+          'روز بخیر مهدی 👋',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
@@ -21,7 +21,7 @@ class WelcomeSection extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'آماده لذت بردن از تجربه کافه مورد علاقه خود هستید؟',
+          'اینجا تمام اطلاعاتی که لازم داری هست!',
           style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
           textDirection: TextDirection.rtl,
         ),

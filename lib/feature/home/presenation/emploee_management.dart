@@ -1,34 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui';
 
-void main() {
-  runApp(const CafeStaffProfileApp());
-}
-
-class CafeStaffProfileApp extends StatelessWidget {
-  const CafeStaffProfileApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Staff Profile',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFF9F6F2), // cream
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF221910), // background-dark
-
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.dark, // respect the screenshot (dark)
-      home: const StaffProfilePage(),
-    );
-  }
-}
+import 'package:flutter/material.dart';
 
 class StaffProfilePage extends StatefulWidget {
   const StaffProfilePage({super.key});
@@ -426,3 +398,4 @@ class _StaffProfilePageState extends State<StaffProfilePage>
     );
   }
 }
+
