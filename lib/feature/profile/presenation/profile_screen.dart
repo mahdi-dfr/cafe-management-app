@@ -1,151 +1,149 @@
+import 'package:cafe_app/core/constants/constantw.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../core/app_colors.dart';
-import 'profile_controller.dart';
-import 'widgets/profile_info_card.dart';
-import 'edit_profile_screen.dart';
 
-/// Profile screen displaying user information
+import '../../../core/app_colors.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController controller = Get.put(ProfileController());
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: SafeArea(
-        top: true,
-        bottom: false,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              const SizedBox(height: 22),
-              Obx(
-                () => Hero(
-                  tag: 'profile_picture',
-                  child: GestureDetector(
-                    onTap: () {
-                      // TODO: Implement image picker
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.white, width: 4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.shadowColor,
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: controller.user.value.profileImageUrl != null
-                          ? ClipOval(
-                              child: Image.network(
-                                controller.user.value.profileImageUrl!,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Icon(
-                              Icons.person,
-                              size: 60,
-                              color: AppColors.backgroundColor,
-                            ),
-                    ),
+      appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        elevation: 0,
+        // leading: IconButton(color: AppColors.textPrimary, onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        centerTitle: true,
+        title: Text(
+          "حساب کاربری",
+          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 24),
+        ),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+
+            // profile
+            Column(
+              children: [
+                CircleAvatar(radius: 55, backgroundImage: NetworkImage(AppConstants.img)),
+                SizedBox(height: 10),
+                Text(
+                  "Mahdi Daneshfar",
+                  style: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 5),
+                Text("09121114455", style: TextStyle(color: AppColors.textSecondary)),
+                SizedBox(height: 25),
+
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
+                    child: Text('ویرایش پروفایل'),
                   ),
                 ),
-              ),
-              // Profile Content
-               Container(
-                  margin: const EdgeInsets.only(top: 80),
-                  padding: const EdgeInsets.all(24),
-                  child: ProfileViewMode(controller: controller),
+              ],
+            ),
+
+            const SizedBox(height: 25),
+
+            AccountTile(
+              title: "اطلاعات کاربر",
+              subtitle: "توضیحاتی در مورد کاربر",
+              icon: Icons.person,
+              trailing: "جزئیات",
+            ),
+
+            AccountTile(title: "نقش", subtitle: "باریستا", icon: Icons.badge),
+
+            AccountTile(title: "Theme", subtitle: "", icon: Icons.dark_mode, switchButton: true),
+            SizedBox(height: 25),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout_outlined, color: Colors.red,),
+                    SizedBox(width: 10),
+                    Text('خروج از حساب', ),
+                  ],
                 ),
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-/// Profile view mode widget
-class ProfileViewMode extends StatelessWidget {
-  final ProfileController controller;
+class AccountTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String? trailing;
+  final bool switchButton;
+  final bool isDestructive;
 
-  const ProfileViewMode({super.key, required this.controller});
+  const AccountTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    this.trailing,
+    this.switchButton = false,
+    this.isDestructive = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Welcome Text
-        Text(
-          controller.user.value.name,
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
-          ),
-          textDirection: TextDirection.rtl,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          controller.user.value.email,
-          style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
-          textDirection: TextDirection.ltr,
-        ),
-        const SizedBox(height: 40),
-        // User Info Cards
-        ProfileInfoCard(
-          icon: Icons.person_outline,
-          label: 'نام کامل',
-          value: controller.user.value.name,
-        ),
-        const SizedBox(height: 16),
-        ProfileInfoCard(
-          icon: Icons.email_outlined,
-          label: 'ایمیل',
-          value: controller.user.value.email,
-        ),
-        const SizedBox(height: 16),
-        ProfileInfoCard(
-          icon: Icons.phone_outlined,
-          label: 'شماره موبایل',
-          value: controller.user.value.mobileNumber,
-          isReadOnly: true,
-        ),
-        const SizedBox(height: 30),
-        // Edit Button
-        ElevatedButton(
-          onPressed: () {
-            Get.to(() => const EditProfileScreen());
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.lightPurple,
-            foregroundColor: AppColors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 0,
-          ),
-          child: Text(
-            'ویرایش پروفایل',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.primaryColor,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: AppColors.cardBackground, borderRadius: BorderRadius.circular(16)),
+      child: Row(
+        children: [
+          Icon(icon, color: isDestructive ? AppColors.secondaryColor : AppColors.secondaryColor, size: 26),
+          const SizedBox(width: 14),
+
+          // Title + Subtitle
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: isDestructive ? AppColors.secondaryColor : AppColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (subtitle.isNotEmpty)
+                  Text(subtitle, style: TextStyle(color: AppColors.secondaryColor, fontSize: 13)),
+              ],
             ),
           ),
-        ),
-      ],
+
+          // trailing button
+          if (trailing != null)
+            Text(
+              trailing!,
+              style: TextStyle(color: AppColors.secondaryColor, fontWeight: FontWeight.w600),
+            ),
+
+          // switch
+          if (switchButton) Switch(value: true, onChanged: (_) {}, activeColor: AppColors.secondaryColor),
+        ],
+      ),
     );
   }
 }

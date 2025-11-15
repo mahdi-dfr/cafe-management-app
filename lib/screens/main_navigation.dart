@@ -19,25 +19,25 @@ class MainNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PersistentBottomNavBarItem> _navBarsItems() {
+    List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
           icon: Icon(Icons.home_rounded),
           title: 'خانه',
           activeColorPrimary: AppColors.primaryColor,
-          inactiveColorPrimary: AppColors.tertiaryColor,
+          inactiveColorPrimary: AppColors.surfaceColor,
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.history_rounded),
           title: 'تاریخچه',
           activeColorPrimary: AppColors.primaryColor,
-          inactiveColorPrimary: AppColors.tertiaryColor,
+          inactiveColorPrimary: AppColors.surfaceColor,
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.person_rounded),
           title: 'حساب کاربری',
           activeColorPrimary: AppColors.primaryColor,
-          inactiveColorPrimary: AppColors.tertiaryColor,
+          inactiveColorPrimary: AppColors.surfaceColor,
         ),
       ];
     }
@@ -46,7 +46,7 @@ class MainNavigation extends StatelessWidget {
       context,
       controller: _controller,
       screens: _buildScreens(),
-      items: _navBarsItems(),
+      items: navBarsItems(),
       onItemSelected: (index) {},
       navBarHeight: 65,
       padding: EdgeInsets.zero,
