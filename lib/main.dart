@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
       getPages: RouteManagement.routes,
       initialRoute: RouteManagement.splashScreen,
       defaultTransition: Transition.fadeIn,
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 200),
       locale: const Locale('fa', 'IR'),
     );
   }

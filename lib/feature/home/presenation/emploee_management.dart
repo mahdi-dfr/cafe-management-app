@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cafe_app/core/app_colors.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnel_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constants/constantw.dart';
 
@@ -25,7 +26,9 @@ class OurTeamList extends StatelessWidget {
             ),
             itemCount: 20,
             itemBuilder: (context, index) {
-              return PersonnelCard(name: 'Mahdi Daneshfar', avatarUrl: AppConstants.img, onTap: () {  },);
+              return PersonnelCard(name: 'Mahdi Daneshfar', avatarUrl: AppConstants.img, onTap: () {
+                Get.to(StaffProfilePage());
+              },);
             },
           ),
         ),
@@ -33,6 +36,8 @@ class OurTeamList extends StatelessWidget {
     );
   }
 }
+
+
 
 class StaffProfilePage extends StatefulWidget {
   const StaffProfilePage({super.key});
@@ -69,14 +74,10 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
         child: Container(
           padding: padding ?? const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? const Color.fromRGBO(61, 44, 42, 0.28)
-                : const Color.fromRGBO(255, 255, 255, 0.5),
+            color: AppColors.cardBackground,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? const Color.fromRGBO(61, 44, 42, 0.35)
-                  : const Color.fromRGBO(212, 187, 165, 0.15),
+              color: const Color.fromRGBO(61, 44, 42, 0.35),
             ),
           ),
           child: child,
@@ -94,14 +95,12 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
           width: 40,
           height: 40,
           decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? const Color(0xFFD4BBA5).withOpacity(0.6)
-                : const Color(0xFFD4BBA5).withOpacity(0.4),
+            color: const Color(0xFFD4BBA5).withOpacity(0.6),
             shape: BoxShape.circle,
           ),
           child: Icon(
             icon,
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.brown[900] : Colors.brown[900],
+            color: Colors.brown[900],
           ),
         ),
         const SizedBox(width: 12),
@@ -112,7 +111,7 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
               Text(
                 title,
                 style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.brown[900],
+                  color:  Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -120,9 +119,7 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
               Text(
                 subtitle,
                 style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? const Color(0xFFD4BBA5)
-                      : Colors.brown[600],
+                  color:const Color(0xFFD4BBA5),
                   fontSize: 13,
                 ),
               ),
@@ -198,9 +195,7 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
             } else if (isCircle) {
               return Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? const Color(0xFFD4BBA5).withOpacity(0.45)
-                      : const Color(0xFFD4BBA5).withOpacity(0.6),
+                  color: const Color(0xFFD4BBA5).withOpacity(0.45),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
@@ -222,12 +217,14 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final headerTextColor = isDark ? Colors.white : Colors.brown[900];
-    final subTextColor = isDark ? const Color(0xFFD4BBA5) : Colors.brown[400];
 
     return Scaffold(
       extendBodyBehindAppBar: false,
+      backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: Text('پروفایل کاربر'),
+        centerTitle: true,
+      ),
       body: SafeArea(
         bottom: true,
         child: FadeTransition(
@@ -238,25 +235,6 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Top bar
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.brown[900]),
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Staff Profile',
-                        style: TextStyle(color: headerTextColor, fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.more_vert, color: isDark ? Colors.white : Colors.brown[900]),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 6),
                   // Profile picture and name
                   Column(
@@ -283,10 +261,10 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                       const SizedBox(height: 12),
                       Text(
                         'Alex Doe',
-                        style: TextStyle(color: headerTextColor, fontSize: 22, fontWeight: FontWeight.w800),
+                        style: TextStyle( fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white),
                       ),
                       const SizedBox(height: 4),
-                      Text('Head Barista', style: TextStyle(color: subTextColor, fontSize: 15)),
+                      Text('Head Barista', style: TextStyle( fontSize: 15)),
                     ],
                   ),
                   const SizedBox(height: 18),
@@ -294,14 +272,14 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: isDark ? Colors.brown.withOpacity(0.2) : const Color(0xFFEFECEC),
+                      color: Colors.brown.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(28),
                     ),
                     child: Row(
                       children: [
-                        _segmentButton(0, 'Info'),
-                        _segmentButton(1, 'Responsibilities'),
-                        _segmentButton(2, 'Notes'),
+                        _segmentButton(0, 'اطلاعات'),
+                        _segmentButton(1, 'مسئولیت ها'),
+                        _segmentButton(2, 'یادداشت'),
                       ],
                     ),
                   ),
@@ -321,29 +299,29 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Personal Details',
+                                      'اطلاعات شخصی',
                                       style: TextStyle(
-                                        color: headerTextColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w800,
                                       ),
                                     ),
                                     const SizedBox(height: 12),
                                     _twoColumnRow(
-                                      'Phone',
-                                      '+1 (555) 123-4567',
-                                      subTextColor!,
-                                      headerTextColor!,
+                                      'تلفن',
+                                      '09125554477',
                                     ),
                                     const Divider(color: Color(0xFFBBAA99), height: 18),
                                     _twoColumnRow(
-                                      'Email',
-                                      'alex.doe@example.com',
-                                      subTextColor!,
-                                      headerTextColor!,
+                                      'ایمیل',
+                                      'test@example.com',
                                     ),
                                     const Divider(color: Color(0xFFBBAA99), height: 18),
-                                    _twoColumnRow('Age', '28 years old', subTextColor!, headerTextColor!),
+                                    _twoColumnRow('سن', '28',),
+                                    const Divider(color: Color(0xFFBBAA99), height: 18),
+                                    _twoColumnRow(
+                                      'روز آف',
+                                      'یکشنبه',
+                                    ),
                                   ],
                                 ),
                               ),
@@ -354,9 +332,8 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Work History',
+                                      'تاریخچه فعالیت',
                                       style: TextStyle(
-                                        color: headerTextColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w800,
                                       ),
@@ -373,7 +350,7 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                                             Container(
                                               width: 2,
                                               height: 60,
-                                              color: const Color(0xFFD4BBA5).withOpacity(0.25),
+                                              color: AppColors.primaryColor,
                                             ),
                                           ],
                                         ),
@@ -381,12 +358,12 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              timelineItem(Icons.flag, 'Hired', 'October 15, 2021'),
+                                              timelineItem(Icons.flag, 'استخدام', '15 مرداد 1402'),
                                               const SizedBox(height: 12),
                                               timelineItem(
                                                 Icons.star,
-                                                'Promoted to Head Barista',
-                                                'July 22, 2023',
+                                                'ارتقا به سرپرست باریستا',
+                                                '10 اردیبهشت 1404',
                                               ),
                                             ],
                                           ),
@@ -408,14 +385,13 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                                         Text(
                                           'Off-Days',
                                           style: TextStyle(
-                                            color: headerTextColor,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w800,
                                           ),
                                         ),
                                         Text(
                                           'October 2024',
-                                          style: TextStyle(color: subTextColor, fontWeight: FontWeight.w600),
+                                          style: TextStyle(fontWeight: FontWeight.w600),
                                         ),
                                       ],
                                     ),
@@ -434,7 +410,6 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                             child: Center(
                               child: Text(
                                 'Responsibilities (placeholder)',
-                                style: TextStyle(color: headerTextColor),
                               ),
                             ),
                           )
@@ -442,7 +417,7 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
                             key: const ValueKey('notes'),
                             padding: const EdgeInsets.all(30),
                             child: Center(
-                              child: Text('Notes (placeholder)', style: TextStyle(color: headerTextColor)),
+                              child: Text('Notes (placeholder)', ),
                             ),
                           ),
                   ),
@@ -452,21 +427,11 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFFD47311),
-        onPressed: () {
-          // edit pressed
-        },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        child: const Icon(Icons.edit, size: 26),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
   Widget _segmentButton(int idx, String title) {
     final active = _selectedTabIndex == idx;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -480,9 +445,8 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
           height: 44,
           decoration: BoxDecoration(
             color: active
-                ? (isDark
-                      ? const Color(0xFFD4BBA5).withOpacity(0.18)
-                      : const Color(0xFFD4BBA5).withOpacity(0.35))
+                ? (
+                       const Color(0xFFD4BBA5).withOpacity(0.18))
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(22),
           ),
@@ -491,8 +455,8 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
             title,
             style: TextStyle(
               color: active
-                  ? (isDark ? Colors.white : Colors.brown[900])
-                  : (isDark ? const Color(0xFFD4BBA5) : Colors.brown[400]),
+                  ? (Colors.white)
+                  : (const Color(0xFFD4BBA5)),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -501,17 +465,17 @@ class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerPr
     );
   }
 
-  Widget _twoColumnRow(String left, String right, Color leftColor, Color rightColor) {
+  Widget _twoColumnRow(String left, String right,) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
           Expanded(
-            child: Text(left, style: TextStyle(color: leftColor, fontSize: 14)),
+            child: Text(left, style: TextStyle(color: Colors.white, fontSize: 14)),
           ),
           Text(
             right,
-            style: TextStyle(color: rightColor, fontSize: 14, fontWeight: FontWeight.w600),
+            style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
           ),
         ],
       ),

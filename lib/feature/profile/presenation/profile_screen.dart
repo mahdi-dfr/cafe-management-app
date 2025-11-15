@@ -1,5 +1,7 @@
 import 'package:cafe_app/core/constants/constantw.dart';
+import 'package:cafe_app/feature/profile/presenation/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/app_colors.dart';
 
@@ -28,28 +30,28 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // profile
-            Column(
-              children: [
-                CircleAvatar(radius: 55, backgroundImage: NetworkImage(AppConstants.img)),
-                SizedBox(height: 10),
-                Text(
-                  "Mahdi Daneshfar",
-                  style: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Text("09121114455", style: TextStyle(color: AppColors.textSecondary)),
-                SizedBox(height: 25),
-
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
-                    child: Text('ویرایش پروفایل'),
+             Column(
+                children: [
+                  CircleAvatar(radius: 55, backgroundImage: NetworkImage(AppConstants.img)),
+                  SizedBox(height: 10),
+                  Text(
+                    "Mahdi Daneshfar",
+                    style: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(height: 5),
+                  Text("09121114455", style: TextStyle(color: AppColors.textSecondary)),
+                  SizedBox(height: 25),
+
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width,
+                    child: ElevatedButton(
+                      onPressed: () {Get.to(()=> EditProfileScreen());},
+                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
+                      child: Text('ویرایش پروفایل'),
+                    ),
+                  ),
+                ],
+              ),
 
             const SizedBox(height: 25),
 

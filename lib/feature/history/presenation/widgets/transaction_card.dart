@@ -18,7 +18,7 @@ class TransactionCard extends StatelessWidget {
     return Hero(
       tag: 'transaction_${transaction.id}',
       child: InkWell(
-        onTap: () => controller.selectTransaction(transaction),
+        // onTap: () => controller.selectTransaction(transaction),
         borderRadius: BorderRadius.circular(16),
         child: Container(
           padding: const EdgeInsets.all(16),

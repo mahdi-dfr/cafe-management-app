@@ -1,3 +1,4 @@
+import 'package:cafe_app/core/constants/constantw.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
@@ -18,7 +19,7 @@ class EditProfileScreen extends StatelessWidget {
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
         ),
         title: const Text(
@@ -35,8 +36,7 @@ class EditProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 22),
-              Obx(
-                () => Hero(
+               Hero(
                   tag: 'profile_picture',
                   child: GestureDetector(
                     onTap: () {
@@ -57,22 +57,15 @@ class EditProfileScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: controller.user.value.profileImageUrl != null
-                          ? ClipOval(
+                      child:  ClipOval(
                               child: Image.network(
-                                controller.user.value.profileImageUrl!,
+                                AppConstants.img,
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Icon(
-                              Icons.person,
-                              size: 60,
-                              color: AppColors.backgroundColor,
-                            ),
                     ),
                   ),
                 ),
-              ),
               // Edit Content
                Container(
                   margin: const EdgeInsets.only(top: 80),
@@ -97,15 +90,7 @@ class EditProfileForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Edit Title
-        Text(
-          'ویرایش پروفایل',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
-          ),
-        ),
+
         const SizedBox(height: 30),
         // Name Input
         ProfileTextField(
@@ -188,7 +173,7 @@ class EditProfileForm extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.primaryColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                 ),
