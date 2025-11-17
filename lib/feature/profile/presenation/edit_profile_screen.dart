@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
 import 'profile_controller.dart';
-import 'widgets/profile_text_field.dart';
+import '../../../core/widgets/custom_text_field.dart';
 
 /// Edit profile screen
 class EditProfileScreen extends StatelessWidget {
@@ -93,7 +93,7 @@ class EditProfileForm extends StatelessWidget {
 
         const SizedBox(height: 30),
         // Name Input
-        ProfileTextField(
+        CustomTextField(
           controller: controller.nameController,
           label: 'نام کامل',
           icon: Icons.person_outline,
@@ -101,7 +101,7 @@ class EditProfileForm extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         // Email Input
-        ProfileTextField(
+        CustomTextField(
           controller: controller.emailController,
           label: 'ایمیل',
           icon: Icons.email_outlined,
@@ -109,7 +109,7 @@ class EditProfileForm extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         // Mobile Input (Disabled)
-        ProfileTextField(
+        CustomTextField(
           controller: controller.mobileController,
           label: 'شماره موبایل',
           icon: Icons.phone_outlined,
