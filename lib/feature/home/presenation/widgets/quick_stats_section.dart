@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../core/app_colors.dart';
 import '../emploee_management.dart';
 import '../controller/home_controller.dart';
+import '../warehouse_management.dart';
 import 'stat_card.dart';
 
 /// Quick stats section widget
@@ -27,7 +28,7 @@ class QuickStatsSection extends StatelessWidget {
             child: StatCard(
               title: 'انبار داری',
               value: Icons.warehouse,
-              color: AppColors.backgroundColor, onTap: () {  },
+              color: AppColors.backgroundColor, onTap: () { Get.to(WarehouseManagementScreen()); },
             ),
           ),
         ],
