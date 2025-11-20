@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cafe_app/core/constants/route_management.dart';
+import 'package:cafe_app/core/resource/app_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -116,6 +117,7 @@ class MyApp extends StatelessWidget {
       // // Define routes
       getPages: RouteManagement.routes,
       initialRoute: RouteManagement.splashScreen,
+      initialBinding: AppBindings(),
       defaultTransition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 200),
       locale: const Locale('fa', 'IR'),

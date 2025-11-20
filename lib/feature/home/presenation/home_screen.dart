@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
-import 'home_controller.dart';
+import 'controller/home_controller.dart';
 import 'widgets/welcome_section.dart';
 import 'widgets/quick_stats_section.dart';
 import 'widgets/quick_actions_section.dart';

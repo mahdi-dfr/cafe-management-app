@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cafe_app/core/app_colors.dart';
+import 'package:cafe_app/feature/home/presenation/add_user_screen.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class _OurTeamListState extends State<OurTeamList>
         child: ScaleTransition(
           scale: _controller,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {Get.to(AddUserScreen());},
             backgroundColor: AppColors.secondaryColor,
             child: Icon(Icons.add, color: AppColors.backgroundColor),
           ),
