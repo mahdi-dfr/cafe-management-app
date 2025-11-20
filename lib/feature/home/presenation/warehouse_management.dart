@@ -1,4 +1,5 @@
 import 'package:cafe_app/core/app_colors.dart';
+import 'package:cafe_app/feature/home/presenation/controller/inventory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -62,14 +63,14 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('Warehouse'),
+        title: const Text('مدیریت انبار'),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
-        onPressed: () => Get.to(const AddCommodityScreen()),
+        onPressed: () => Get.to( AddCommodityScreen()),
         child: Icon(Icons.add, color: AppColors.backgroundColor),
       ),
       body: SafeArea(
@@ -78,10 +79,6 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Inventory',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
-              ),
               const SizedBox(height: 8),
               Text(
                 'مدیریت کامل موجودی انبار',
@@ -89,7 +86,7 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
               ),
               const SizedBox(height: 20),
               WarehouseSegmentedFilter(
-                segments: const ['ابزار فیزیکی', 'مواد خوراکی'],
+                segments: const ['کالاهای فیزیکی', 'مواد خوراکی'],
                 selectedIndex: _selectedSegment,
                 onChanged: (index) => setState(() => _selectedSegment = index),
               ),
@@ -219,7 +216,7 @@ class CommodityCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Icon(Icons.inventory),
+              child: Icon(Icons.inventory, color: AppColors.secondaryColor, size: 30,),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -476,29 +473,16 @@ class _MiniStatCard extends StatelessWidget {
   }
 }
 
-class AddCommodityScreen extends StatefulWidget {
-  const AddCommodityScreen({super.key});
 
-  @override
-  State<AddCommodityScreen> createState() => _AddCommodityScreenState();
-}
-
-class _AddCommodityScreenState extends State<AddCommodityScreen> {
+class AddCommodityScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+
   String? _selectedCategory;
 
   final List<String> _categories = ['ابزار فیزیکی', 'مواد خوراکی', 'بسته بندی'];
+  final _controller = Get.find<InventoryController>();
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _priceController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
+  AddCommodityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -519,7 +503,7 @@ class _AddCommodityScreenState extends State<AddCommodityScreen> {
             children: [
               const SizedBox(height: 12),
               CafeTextFormField(
-                controller: _nameController,
+                controller: _controller.nameController,
                 label: 'نام کالا',
                 icon: Icons.inventory_rounded,
                 validator: (value) => value == null || value.isEmpty
@@ -528,7 +512,7 @@ class _AddCommodityScreenState extends State<AddCommodityScreen> {
               ),
               const SizedBox(height: 16),
               CafeTextFormField(
-                controller: _priceController,
+                controller: _controller.priceController,
                 label: 'قیمت',
                 icon: Icons.attach_money,
                 keyboardType: TextInputType.number,
@@ -537,7 +521,7 @@ class _AddCommodityScreenState extends State<AddCommodityScreen> {
               ),
               const SizedBox(height: 16),
               CafeTextFormField(
-                controller: _descriptionController,
+                controller: _controller.descriptionController,
                 label: 'توضیحات',
                 icon: Icons.description_outlined,
                 maxLines: 4,

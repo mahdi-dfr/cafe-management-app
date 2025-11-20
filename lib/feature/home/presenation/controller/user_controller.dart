@@ -18,4 +18,22 @@ class UserModificationController extends GetxController{
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    userFirstNameController.dispose();
+    userPhoneNumberController.dispose();
+    userLastNameController.dispose();
+    userDescriptionsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    userFirstNameController.dispose();
+    userPhoneNumberController.dispose();
+    userLastNameController.dispose();
+    userDescriptionsController.dispose();
+    super.onClose();
+  }
+
 }
