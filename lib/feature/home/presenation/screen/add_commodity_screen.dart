@@ -1,12 +1,12 @@
-import 'package:cafe_app/feature/home/presenation/warehouse_management.dart';
+import 'package:cafe_app/feature/home/presenation/screen/warehouse_management.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_colors.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text_field.dart';
-import '../../../core/widgets/drop_box.dart';
-import 'controller/inventory_controller.dart';
+import '../../../../core/app_colors.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/widgets/drop_box.dart';
+import '../controller/inventory_controller.dart';
 
 class AddCommodityScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -47,8 +47,17 @@ class AddCommodityScreen extends StatelessWidget {
               const SizedBox(height: 16),
               CustomTextField(
                 controller: _controller.priceController,
-                label: 'قیمت',
+                label: 'قیمت واحد',
                 icon: Icons.attach_money,
+                keyboardType: TextInputType.number,
+                validator: (value) =>
+                value == null || value.isEmpty ? 'قیمت را وارد کنید' : null,
+              ),
+              const SizedBox(height: 16),
+              CustomTextField(
+                controller: _controller.priceController,
+                label: 'تعداد',
+                icon: Icons.numbers,
                 keyboardType: TextInputType.number,
                 validator: (value) =>
                 value == null || value.isEmpty ? 'قیمت را وارد کنید' : null,
@@ -69,7 +78,7 @@ class AddCommodityScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کاربر', onPressed: () {
+      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کالا ', onPressed: () {
         if (!(_formKey.currentState?.validate() ?? false)) return;
 
         if (_selectedCategory == null) {

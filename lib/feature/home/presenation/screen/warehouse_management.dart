@@ -346,9 +346,9 @@ class CommodityDetailsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {Get.to(AddCommodityScreen());},
                 child: const Text(
-                  'ذخیره تغییرات',
+                  'ویرایش کالا',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

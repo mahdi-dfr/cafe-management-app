@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/app_colors.dart';
-import '../emploee_management.dart';
 import '../controller/home_controller.dart';
-import '../warehouse_management.dart';
+import '../screen/emploee_management.dart';
+import '../screen/warehouse_management.dart';
 import 'stat_card.dart';
 
 /// Quick stats section widget
