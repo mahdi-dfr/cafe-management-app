@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../app_colors.dart';
 
 class FormConfirmButton extends StatelessWidget {
-  const FormConfirmButton({super.key, required this.title});
+  const FormConfirmButton({super.key, required this.title, required this.onPressed});
 
   final String title;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +14,8 @@ class FormConfirmButton extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 24,
         right: 24,
-        top: 16,
-        bottom: 16 + MediaQuery.of(context).viewInsets.bottom,
+        top: 8,
+        bottom: 8 + MediaQuery.of(context).viewInsets.bottom,
       ),
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeOut,

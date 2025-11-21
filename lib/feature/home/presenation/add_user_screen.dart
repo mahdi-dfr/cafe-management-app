@@ -60,7 +60,7 @@ class AddUserScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کاربر')
+      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کاربر', onPressed: () {  },)
     );
   }
 }

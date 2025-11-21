@@ -3,6 +3,7 @@ import 'package:cafe_app/feature/home/presenation/controller/inventory_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/drop_box.dart';
 
 class WarehouseManagementScreen extends StatefulWidget {
@@ -531,39 +532,56 @@ class AddCommodityScreen extends StatelessWidget {
               const SizedBox(height: 16),
               CustomDropDown(items: _categories, title: 'دسته‌بندی', onPressed: (String p1) {  }, color: AppColors.cardBackground,),
               const SizedBox(height: 28),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  foregroundColor: AppColors.backgroundColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                ),
-                onPressed: () {
-                  if (!(_formKey.currentState?.validate() ?? false)) return;
 
-                  if (_selectedCategory == null) {
-                    Get.snackbar(
-                      'هشدار',
-                      'دسته‌بندی را انتخاب کنید',
-                      backgroundColor: AppColors.cardBackground,
-                      colorText: Colors.white,
-                    );
-                    return;
-                  }
 
-                  Get.back();
-                },
-                child: const Text(
-                  'ذخیره اطلاعات',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: AppColors.primaryColor,
+              //     foregroundColor: AppColors.backgroundColor,
+              //     padding: const EdgeInsets.symmetric(vertical: 16),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(18),
+              //     ),
+              //   ),
+              //   onPressed: () {
+              //     if (!(_formKey.currentState?.validate() ?? false)) return;
+              //
+              //     if (_selectedCategory == null) {
+              //       Get.snackbar(
+              //         'هشدار',
+              //         'دسته‌بندی را انتخاب کنید',
+              //         backgroundColor: AppColors.cardBackground,
+              //         colorText: Colors.white,
+              //       );
+              //       return;
+              //     }
+              //
+              //     Get.back();
+              //   },
+              //   child: const Text(
+              //     'ذخیره اطلاعات',
+              //     style: TextStyle(fontWeight: FontWeight.bold),
+              //   ),
+              // ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کاربر', onPressed: () {
+        if (!(_formKey.currentState?.validate() ?? false)) return;
+
+        if (_selectedCategory == null) {
+          Get.snackbar(
+            'هشدار',
+            'دسته‌بندی را انتخاب کنید',
+            backgroundColor: AppColors.cardBackground,
+            colorText: Colors.white,
+          );
+          return;
+        }
+
+        Get.back();
+      },),
     );
   }
 }
