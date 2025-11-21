@@ -22,7 +22,7 @@ class FormConfirmButton extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryColor,
             minimumSize: const Size(double.infinity, 50),

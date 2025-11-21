@@ -15,4 +15,16 @@ class InventoryController extends GetxController{
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    nameController.clear();
+    priceController.clear();
+    descriptionController.clear();
+    nameController.dispose();
+    priceController.dispose();
+    descriptionController.dispose();
+    super.onClose();
+  }
+
+
 }

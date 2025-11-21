@@ -1,10 +1,8 @@
 import 'package:cafe_app/core/app_colors.dart';
-import 'package:cafe_app/feature/home/presenation/controller/inventory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/drop_box.dart';
+import 'add_commodity_screen.dart';
 
 class WarehouseManagementScreen extends StatefulWidget {
   const WarehouseManagementScreen({super.key});
@@ -477,114 +475,7 @@ class _MiniStatCard extends StatelessWidget {
 }
 
 
-class AddCommodityScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
 
-  String? _selectedCategory;
-
-  final List<String> _categories = ['ابزار فیزیکی', 'مواد خوراکی', 'بسته بندی'];
-  final _controller = Get.find<InventoryController>();
-
-  AddCommodityScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        title: const Text('افزودن کالای جدید'),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 12),
-              CafeTextFormField(
-                controller: _controller.nameController,
-                label: 'نام کالا',
-                icon: Icons.inventory_rounded,
-                validator: (value) => value == null || value.isEmpty
-                    ? 'نام کالا را وارد کنید'
-                    : null,
-              ),
-              const SizedBox(height: 16),
-              CafeTextFormField(
-                controller: _controller.priceController,
-                label: 'قیمت',
-                icon: Icons.attach_money,
-                keyboardType: TextInputType.number,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'قیمت را وارد کنید' : null,
-              ),
-              const SizedBox(height: 16),
-              CafeTextFormField(
-                controller: _controller.descriptionController,
-                label: 'توضیحات',
-                icon: Icons.description_outlined,
-                maxLines: 4,
-              ),
-              const SizedBox(height: 16),
-              CustomDropDown(items: _categories, title: 'دسته‌بندی', onPressed: (String p1) {  }, color: AppColors.cardBackground,),
-              const SizedBox(height: 28),
-
-
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: AppColors.primaryColor,
-              //     foregroundColor: AppColors.backgroundColor,
-              //     padding: const EdgeInsets.symmetric(vertical: 16),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(18),
-              //     ),
-              //   ),
-              //   onPressed: () {
-              //     if (!(_formKey.currentState?.validate() ?? false)) return;
-              //
-              //     if (_selectedCategory == null) {
-              //       Get.snackbar(
-              //         'هشدار',
-              //         'دسته‌بندی را انتخاب کنید',
-              //         backgroundColor: AppColors.cardBackground,
-              //         colorText: Colors.white,
-              //       );
-              //       return;
-              //     }
-              //
-              //     Get.back();
-              //   },
-              //   child: const Text(
-              //     'ذخیره اطلاعات',
-              //     style: TextStyle(fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کاربر', onPressed: () {
-        if (!(_formKey.currentState?.validate() ?? false)) return;
-
-        if (_selectedCategory == null) {
-          Get.snackbar(
-            'هشدار',
-            'دسته‌بندی را انتخاب کنید',
-            backgroundColor: AppColors.cardBackground,
-            colorText: Colors.white,
-          );
-          return;
-        }
-
-        Get.back();
-      },),
-    );
-  }
-}
 
 class CategoryDropdown extends StatelessWidget {
   final String label;
@@ -638,70 +529,7 @@ class CategoryDropdown extends StatelessWidget {
   }
 }
 
-class CafeTextFormField extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final IconData icon;
-  final TextInputType keyboardType;
-  final int maxLines;
-  final String? Function(String?)? validator;
 
-  const CafeTextFormField({
-    super.key,
-    required this.controller,
-    required this.label,
-    required this.icon,
-    this.keyboardType = TextInputType.text,
-    this.maxLines = 1,
-    this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 6),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          maxLines: maxLines,
-          textDirection: TextDirection.rtl,
-          validator: validator,
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon, color: AppColors.primaryColor),
-            filled: true,
-            fillColor: AppColors.cardBackground,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(color: Colors.white12),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(color: AppColors.primaryColor),
-            ),
-          ),
-          style: const TextStyle(color: Colors.white),
-        ),
-      ],
-    );
-  }
-}
 
 class WarehouseItem {
   final String title;

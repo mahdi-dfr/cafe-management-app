@@ -20,25 +20,23 @@ class AddUserScreen extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
             child: Column(
               children: [
-                Text('در این قسمت شما میتوانید پرسنل جدید را اضافه کنید.'),
-                SizedBox(height: 60),
 
                 CustomTextField(
                   controller: _controller.userFirstNameController,
                   label: 'نام',
                   icon: Icons.person,
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
 
                 CustomTextField(
                   controller: _controller.userLastNameController,
                   label: 'نام خانوادگی',
                   icon: Icons.person,
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
 
                 CustomTextField(
                   controller: _controller.userPhoneNumberController,
@@ -46,11 +44,12 @@ class AddUserScreen extends StatelessWidget {
                   icon: Icons.phone_android,
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
 
                 CustomTextField(
                   controller: _controller.userDescriptionsController,
                   label: 'توضیحات',
+                  maxLines: 4,
                   icon: Icons.description,
                 ),
                 SizedBox(height: 120), // فاصله اضافی تا آخر اسکرول
