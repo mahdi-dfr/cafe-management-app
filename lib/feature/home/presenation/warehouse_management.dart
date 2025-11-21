@@ -3,6 +3,8 @@ import 'package:cafe_app/feature/home/presenation/controller/inventory_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/widgets/drop_box.dart';
+
 class WarehouseManagementScreen extends StatefulWidget {
   const WarehouseManagementScreen({super.key});
 
@@ -527,12 +529,7 @@ class AddCommodityScreen extends StatelessWidget {
                 maxLines: 4,
               ),
               const SizedBox(height: 16),
-              CategoryDropdown(
-                label: 'دسته‌بندی',
-                categories: _categories,
-                value: _selectedCategory,
-                onChanged: (value) => setState(() => _selectedCategory = value),
-              ),
+              CustomDropDown(items: _categories, title: 'دسته‌بندی', onPressed: (String p1) {  }, color: AppColors.cardBackground,),
               const SizedBox(height: 28),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
