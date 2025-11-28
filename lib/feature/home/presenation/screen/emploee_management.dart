@@ -1,5 +1,6 @@
 
 import 'package:cafe_app/core/app_colors.dart';
+import 'package:cafe_app/core/assets_route.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnel_item.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/user_management.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _OurTeamListState extends State<OurTeamList>
               itemBuilder: (context, index) {
                 return PersonnelCard(
                   name: 'Mahdi Daneshfar',
-                  avatarUrl: AppConstants.img,
+                  avatarUrl: AssetsRoute.img,
                   onTap: () => Get.to(const StaffProfilePage()),
                 );
               },

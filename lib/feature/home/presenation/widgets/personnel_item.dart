@@ -39,24 +39,13 @@ class PersonnelCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: ClipOval(
-                        child: Image.network(
+                        child: Image.asset(
                           avatarUrl,
                           fit: BoxFit.cover,
                           errorBuilder: (context, err, stack) => Container(
                             color: Colors.grey.shade300,
                             child: const Icon(Icons.person, size: 40),
                           ),
-                          loadingBuilder: (context, child, progress) {
-                            if (progress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: progress.expectedTotalBytes != null
-                                    ? progress.cumulativeBytesLoaded /
-                                    progress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
                         ),
                       ),
                     ),

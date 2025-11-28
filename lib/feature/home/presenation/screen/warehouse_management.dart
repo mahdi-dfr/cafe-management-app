@@ -302,7 +302,7 @@ class CommodityDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommodityDetailHeader(item: item),
+            // CommodityDetailHeader(item: item),
             const SizedBox(height: 18),
             CommodityDetailSection(
               title: 'توضیحات',
