@@ -11,7 +11,7 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('منو'),
+        title: const Text('منو', style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,

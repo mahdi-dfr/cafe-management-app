@@ -23,44 +23,51 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.find<HomeController>();
 
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        title: SvgPicture.asset(
-          AssetsRoute.shookaLogo,
-          colorFilter: ColorFilter.mode(AppColors.secondaryColor, BlendMode.srcIn),
-          width: 100,
-        ).animate(
-            onPlay: (controller) =>
-                controller.repeat(reverse: false))
-            .shimmer(
-          delay: const Duration(milliseconds: 1000),
-          duration: const Duration(milliseconds: 2000),
-          color: AppColors.textPrimary,
+    return PopScope(
+      canPop: false,
+     onPopInvokedWithResult: (bool didPop, Object? result){
+       SystemNavigator.pop();
+
+     },
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
+        appBar: AppBar(
+          title: SvgPicture.asset(
+            AssetsRoute.shookaLogo,
+            colorFilter: ColorFilter.mode(AppColors.secondaryColor, BlendMode.srcIn),
+            width: 100,
+          ).animate(
+              onPlay: (controller) =>
+                  controller.repeat(reverse: false))
+              .shimmer(
+            delay: const Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 2000),
+            color: AppColors.textPrimary,
+          ),
+          centerTitle: true,
+          leading: IconButton(onPressed: (){
+            Get.toNamed(RouteManagement.menu);
+          }, icon: Icon(Icons.menu, color: AppColors.textPrimary,)),
         ),
-        centerTitle: true,
-        leading: IconButton(onPressed: (){
-          Get.toNamed(RouteManagement.menu);
-        }, icon: Icon(Icons.menu, color: AppColors.textPrimary,)),
-      ),
-      body: SafeArea(
-        top: true,
-        bottom: false,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(18),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const WelcomeSection(),
-              const SizedBox(height: 30),
-              QuickStatsSection(controller: controller),
-              const SizedBox(height: 30),
-              const QuickActionsSection(),
-              const SizedBox(height: 90),
-              const PromoSlider(),
-              // const RecentActivitySection(),
-            ],
+        body: SafeArea(
+          top: true,
+          bottom: false,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const WelcomeSection(),
+                const SizedBox(height: 30),
+                QuickStatsSection(controller: controller),
+                const SizedBox(height: 30),
+                const QuickActionsSection(),
+                const SizedBox(height: 90),
+                const PromoSlider(),
+                // const RecentActivitySection(),
+              ],
+            ),
           ),
         ),
       ),
