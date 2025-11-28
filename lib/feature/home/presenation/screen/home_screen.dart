@@ -1,9 +1,11 @@
 
+import 'package:cafe_app/feature/menu/presentation/menu_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/constants/route_management.dart';
 import '../../../../core/resource/app_colors.dart';
 import '../../../../core/resource/assets_route.dart';
 import '../controller/home_controller.dart';
@@ -36,7 +38,9 @@ class HomeScreen extends StatelessWidget {
           color: AppColors.textPrimary,
         ),
         centerTitle: true,
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.settings, color: AppColors.textPrimary,)),
+        leading: IconButton(onPressed: (){
+          Get.toNamed(RouteManagement.menu);
+        }, icon: Icon(Icons.menu, color: AppColors.textPrimary,)),
       ),
       body: SafeArea(
         top: true,
