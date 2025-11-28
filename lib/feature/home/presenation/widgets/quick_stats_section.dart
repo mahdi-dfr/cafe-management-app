@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/resource/app_colors.dart';
 import '../controller/home_controller.dart';
-import '../screen/emploee_management.dart';
-import '../screen/warehouse_management.dart';
+import '../screen/personnle/personnle_management.dart';
+import '../screen/inventory/warehouse_management.dart';
 import 'stat_card.dart';
 
 /// Quick stats section widget
@@ -20,7 +20,7 @@ class QuickStatsSection extends StatelessWidget {
             child: StatCard(
               title: 'مدیریت پرسنل',
               value: Icons.group,
-              color: AppColors.backgroundColor, onTap: () { Get.to(OurTeamList()); },
+              color: AppColors.backgroundColor, onTap: () { Get.to(PersonnelList()); },
             ),
           ),
           const SizedBox(width: 15),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/resource/app_colors.dart';
-import '../../../models/transaction_model.dart';
+import '../../../muck_models/transaction_model.dart';
 import 'widgets/transaction_detail_row.dart';
 import 'widgets/transaction_status_helper.dart';
 

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/resource/app_colors.dart';
 import '../../../../core/resource/assets_route.dart';
+import '../../../../muck_models/transaction_model.dart';
 import 'activity_card.dart';
-import '../../../../models/transaction_model.dart';
 
 /// Recent activity section widget
 class RecentActivitySection extends StatelessWidget {
@@ -34,7 +34,7 @@ class RecentActivitySection extends StatelessWidget {
           status: TransactionStatus.completed,
         ),
         const SizedBox(height: 12),
-        const ActivityCard(
+        ActivityCard(
           title: 'سفارش شیرینی',
           subtitle: 'کروسان و مافین',
           amount: '8990 تومان',

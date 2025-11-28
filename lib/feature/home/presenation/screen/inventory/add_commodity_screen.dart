@@ -1,12 +1,12 @@
-import 'package:cafe_app/feature/home/presenation/screen/warehouse_management.dart';
+import 'package:cafe_app/feature/home/presenation/screen/inventory/warehouse_management.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/resource/app_colors.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text_field.dart';
-import '../../../../core/widgets/drop_box.dart';
-import '../controller/inventory_controller.dart';
+import '../../../../../core/resource/app_colors.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../../../../core/widgets/custom_text_field.dart';
+import '../../../../../core/widgets/drop_box.dart';
+import '../../controller/inventory_controller.dart';
 
 class AddCommodityScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

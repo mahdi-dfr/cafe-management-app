@@ -1,12 +1,15 @@
 import 'dart:ui';
 
+import 'package:cafe_app/muck_models/personnle_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/resource/app_colors.dart';
-import '../screen/emploee_management.dart';
+import '../../../../../core/resource/app_colors.dart';
+import '../../screen/personnle/personnle_management.dart';
 
 class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget({super.key});
+  const UserInfoWidget({super.key, required this.personnel});
+
+  final PersonnelModel personnel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +34,25 @@ class UserInfoWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              const TwoColumnRow('تلفن', '09125554477'),
+              TwoColumnRow('تلفن', personnel.phoneNumber!),
               const Divider(
                 color: Color(0xFFBBAA99),
                 height: 18,
               ),
-              const TwoColumnRow(
+              TwoColumnRow(
                 'ایمیل',
-                'test@example.com',
+                personnel.email!,
               ),
               const Divider(
                 color: Color(0xFFBBAA99),
                 height: 18,
               ),
-              const TwoColumnRow('سن', '28'),
+              TwoColumnRow('سن', personnel.age!.toString()),
               const Divider(
                 color: Color(0xFFBBAA99),
                 height: 18,
               ),
-              const TwoColumnRow('روز آف', 'یکشنبه'),
+              TwoColumnRow('روز آف', convertDayOff[personnel.offDay]),
             ],
           ),
         ),

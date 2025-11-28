@@ -1,22 +1,23 @@
 
 import 'package:cafe_app/core/resource/app_colors.dart';
-import 'package:cafe_app/feature/home/presenation/widgets/personnel_item.dart';
-import 'package:cafe_app/feature/home/presenation/widgets/user_management.dart';
+import 'package:cafe_app/feature/home/presenation/widgets/personnle/personnel_item.dart';
+import 'package:cafe_app/feature/home/presenation/widgets/personnle/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/constants/constant.dart';
-import '../../../../core/resource/assets_route.dart';
+import '../../../../../core/constants/constant.dart';
+import '../../../../../core/resource/assets_route.dart';
+import '../../../../../muck_models/personnle_model.dart';
 import 'add_user_screen.dart';
 
-class OurTeamList extends StatefulWidget {
-  const OurTeamList({super.key});
+class PersonnelList extends StatefulWidget {
+  const PersonnelList({super.key});
 
   @override
-  State<OurTeamList> createState() => _OurTeamListState();
+  State<PersonnelList> createState() => _PersonnelListState();
 }
 
-class _OurTeamListState extends State<OurTeamList>
+class _PersonnelListState extends State<PersonnelList>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   double lastOffset = 0;
@@ -89,12 +90,13 @@ class _OurTeamListState extends State<OurTeamList>
                 crossAxisSpacing: 12.0,
                 childAspectRatio: 0.95,
               ),
-              itemCount: 20,
+              itemCount: personnelList.length
+              ,
               itemBuilder: (context, index) {
                 return PersonnelCard(
-                  name: 'Mahdi Daneshfar',
-                  avatarUrl: AssetsRoute.img,
-                  onTap: () => Get.to(const StaffProfilePage()),
+                  name: '${personnelList[index].firstName!} ${personnelList[index].lastName!}',
+                  avatarUrl: personnelList[index].avatar!,
+                  onTap: () => Get.to( StaffProfilePage(personnel: personnelList[index])),
                 );
               },
             ),
@@ -110,7 +112,9 @@ class _OurTeamListState extends State<OurTeamList>
 // ===========================================================
 
 class StaffProfilePage extends StatefulWidget {
-  const StaffProfilePage({super.key});
+  const StaffProfilePage({required this.personnel, super.key});
+
+  final PersonnelModel personnel;
 
   @override
   State<StaffProfilePage> createState() => _StaffProfilePageState();
@@ -183,8 +187,8 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const Text(
-                        'Mahdi Daneshfar',
+                      Text(
+                        '${widget.personnel.firstName!} ${widget.personnel.lastName!}',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
@@ -192,8 +196,8 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Head Barista',
+                      Text(
+                        widget.personnel.position!,
                         style: TextStyle(fontSize: 15),
                       ),
                     ],
@@ -237,7 +241,7 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 350),
                     child: _selectedTabIndex == 0
-                        ? UserInfoWidget()
+                        ? UserInfoWidget(personnel: widget.personnel,)
                         : _selectedTabIndex == 1
                         ? UserResponsibilitiesWidget()
                         : UserNoteWidget() ,

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import '../../../models/transaction_model.dart';
+
+import '../../../muck_models/transaction_model.dart';
 
 /// Controller for History Screen managing transactions
 class HistoryController extends GetxController {
