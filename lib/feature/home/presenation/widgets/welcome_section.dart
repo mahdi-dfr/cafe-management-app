@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/app_colors.dart';
+import '../../../../core/resource/app_colors.dart';
 
 /// Welcome section widget
 class WelcomeSection extends StatelessWidget {

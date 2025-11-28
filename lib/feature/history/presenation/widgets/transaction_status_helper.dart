@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/app_colors.dart';
+import '../../../../core/resource/app_colors.dart';
 import '../../../../models/transaction_model.dart';
 
 /// Helper class for transaction status

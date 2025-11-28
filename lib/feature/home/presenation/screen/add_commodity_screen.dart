@@ -2,7 +2,7 @@ import 'package:cafe_app/feature/home/presenation/screen/warehouse_management.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/app_colors.dart';
+import '../../../../core/resource/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/drop_box.dart';
@@ -40,6 +40,9 @@ class AddCommodityScreen extends StatelessWidget {
                 controller: _controller.nameController,
                 label: 'نام کالا',
                 icon: Icons.inventory_rounded,
+                iconColor: AppColors.primaryColor,
+                fillColor: AppColors.cardBackground,
+                borderColor: AppColors.primaryColor,
                 validator: (value) => value == null || value.isEmpty
                     ? 'نام کالا را وارد کنید'
                     : null,
@@ -48,6 +51,9 @@ class AddCommodityScreen extends StatelessWidget {
               CustomTextField(
                 controller: _controller.priceController,
                 label: 'قیمت واحد',
+                iconColor: AppColors.primaryColor,
+                fillColor: AppColors.cardBackground,
+                borderColor: AppColors.primaryColor,
                 icon: Icons.attach_money,
                 keyboardType: TextInputType.number,
                 validator: (value) =>
@@ -57,6 +63,9 @@ class AddCommodityScreen extends StatelessWidget {
               CustomTextField(
                 controller: _controller.priceController,
                 label: 'تعداد',
+                iconColor: AppColors.primaryColor,
+                fillColor: AppColors.cardBackground,
+                borderColor: AppColors.primaryColor,
                 icon: Icons.numbers,
                 keyboardType: TextInputType.number,
                 validator: (value) =>
@@ -66,6 +75,9 @@ class AddCommodityScreen extends StatelessWidget {
               CustomTextField(
                 controller: _controller.descriptionController,
                 label: 'توضیحات',
+                iconColor: AppColors.primaryColor,
+                fillColor: AppColors.cardBackground,
+                borderColor: AppColors.primaryColor,
                 icon: Icons.description_outlined,
                 maxLines: 4,
               ),
@@ -78,7 +90,11 @@ class AddCommodityScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: FormConfirmButton(title: 'اضافه کردن کالا ', onPressed: () {
+      bottomNavigationBar: CustomConfirmButton(
+        title: 'اضافه کردن کالا ',
+        textColor: AppColors.backgroundColor,
+        buttonColor: AppColors.primaryColor,
+        onPressed: () {
         if (!(_formKey.currentState?.validate() ?? false)) return;
 
         if (_selectedCategory == null) {
@@ -92,7 +108,8 @@ class AddCommodityScreen extends StatelessWidget {
         }
 
         Get.back();
-      },),
+      },
+      ),
     );
   }
 }

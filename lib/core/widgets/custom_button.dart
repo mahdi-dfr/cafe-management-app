@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../app_colors.dart';
 
-class FormConfirmButton extends StatelessWidget {
-  const FormConfirmButton({super.key, required this.title, required this.onPressed});
+class CustomConfirmButton extends StatelessWidget {
+  const CustomConfirmButton({
+    super.key,
+    required this.title,
+    required this.onPressed,
+    required this.buttonColor,
+    required this.textColor,
+  });
 
   final String title;
+  final Color buttonColor;
+  final Color textColor;
   final Function() onPressed;
 
   @override
@@ -24,10 +31,13 @@ class FormConfirmButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryColor,
+            backgroundColor: buttonColor,
             minimumSize: const Size(double.infinity, 50),
           ),
-          child: Text(title, style: TextStyle(color: AppColors.backgroundColor, fontWeight: FontWeight.bold),),
+          child: Text(
+            title,
+            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

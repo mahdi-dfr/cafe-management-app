@@ -1,4 +1,4 @@
-import 'package:cafe_app/core/app_colors.dart';
+import 'package:cafe_app/core/resource/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PersonnelCard extends StatelessWidget {

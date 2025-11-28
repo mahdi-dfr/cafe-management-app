@@ -1,10 +1,11 @@
-import 'package:cafe_app/core/assets_route.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/app_colors.dart';
+import '../../../../core/resource/app_colors.dart';
+import '../../../../core/resource/assets_route.dart';
 import '../controller/home_controller.dart';
 import '../widgets/quick_actions_section.dart';
 import '../widgets/quick_stats_section.dart';

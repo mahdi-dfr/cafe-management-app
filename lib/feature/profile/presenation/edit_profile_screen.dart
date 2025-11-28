@@ -1,7 +1,7 @@
-import 'package:cafe_app/core/constants/constantw.dart';
+import 'package:cafe_app/core/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/app_colors.dart';
+import '../../../core/resource/app_colors.dart';
 import 'profile_controller.dart';
 import '../../../core/widgets/custom_text_field.dart';
 
@@ -96,6 +96,9 @@ class EditProfileForm extends StatelessWidget {
         CustomTextField(
           controller: controller.nameController,
           label: 'نام کامل',
+          iconColor: AppColors.primaryColor,
+          fillColor: AppColors.cardBackground,
+          borderColor: AppColors.primaryColor,
           icon: Icons.person_outline,
           keyboardType: TextInputType.name,
         ),
@@ -104,6 +107,9 @@ class EditProfileForm extends StatelessWidget {
         CustomTextField(
           controller: controller.emailController,
           label: 'ایمیل',
+          iconColor: AppColors.primaryColor,
+          fillColor: AppColors.cardBackground,
+          borderColor: AppColors.primaryColor,
           icon: Icons.email_outlined,
           keyboardType: TextInputType.emailAddress,
         ),
@@ -112,6 +118,9 @@ class EditProfileForm extends StatelessWidget {
         CustomTextField(
           controller: controller.mobileController,
           label: 'شماره موبایل',
+          iconColor: AppColors.primaryColor,
+          fillColor: AppColors.cardBackground,
+          borderColor: AppColors.primaryColor,
           icon: Icons.phone_outlined,
           keyboardType: TextInputType.phone,
           isEnable: false,

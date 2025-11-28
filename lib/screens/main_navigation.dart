@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import '../core/app_colors.dart';
+import '../core/resource/app_colors.dart';
 import '../feature/history/presenation/history_screen.dart';
 import '../feature/home/presenation/screen/home_screen.dart';
 import '../feature/profile/presenation/profile_screen.dart';

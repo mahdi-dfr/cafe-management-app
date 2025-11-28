@@ -1,9 +1,9 @@
-import 'package:cafe_app/core/constants/constantw.dart';
+import 'package:cafe_app/core/constants/constant.dart';
 import 'package:cafe_app/feature/profile/presenation/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_colors.dart';
+import '../../../core/resource/app_colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

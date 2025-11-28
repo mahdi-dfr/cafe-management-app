@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../../../core/app_colors.dart';
+import '../../../../core/resource/app_colors.dart';
 import '../screen/emploee_management.dart';
 
 class UserInfoWidget extends StatelessWidget {

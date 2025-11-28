@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserModificationController extends GetxController{
+class PersonnelModificationController extends GetxController{
 
   late TextEditingController userFirstNameController;
   late TextEditingController userLastNameController;

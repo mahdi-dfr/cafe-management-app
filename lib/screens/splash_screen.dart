@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../core/app_colors.dart';
-import '../core/assets_route.dart';
+import '../core/resource/app_colors.dart';
+import '../core/resource/assets_route.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../core/app_colors.dart';
-import '../../../../core/assets_route.dart';
+import '../../../../core/resource/app_colors.dart';
+import '../../../../core/resource/assets_route.dart';
 import 'activity_card.dart';
 import '../../../../models/transaction_model.dart';
 

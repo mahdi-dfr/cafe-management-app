@@ -5,7 +5,7 @@ import 'package:cafe_app/core/resource/app_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'core/app_colors.dart';
+import 'core/resource/app_colors.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
