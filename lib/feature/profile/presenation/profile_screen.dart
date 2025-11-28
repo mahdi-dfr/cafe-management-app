@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/resource/app_colors.dart';
+import '../../../core/widgets/item_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -55,16 +56,18 @@ class ProfileScreen extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            AccountTile(
+            ItemTile(
               title: "اطلاعات کاربر",
               subtitle: "توضیحاتی در مورد کاربر",
               icon: Icons.person,
-              trailing: "جزئیات",
+              trailing: "جزئیات", onTap: () {  },
             ),
+            SizedBox(height: 14,),
 
-            AccountTile(title: "نقش", subtitle: "باریستا", icon: Icons.badge),
+            ItemTile(title: "نقش", subtitle: "باریستا", icon: Icons.badge, onTap: () {  },),
+            SizedBox(height: 14,),
 
-            AccountTile(title: "Theme", subtitle: "", icon: Icons.dark_mode, switchButton: true),
+            // ItemTile(title: "Theme", subtitle: "", icon: Icons.dark_mode, switchButton: true),
             SizedBox(height: 25),
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
@@ -88,64 +91,4 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class AccountTile extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final String? trailing;
-  final bool switchButton;
-  final bool isDestructive;
 
-  const AccountTile({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    this.trailing,
-    this.switchButton = false,
-    this.isDestructive = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.cardBackground, borderRadius: BorderRadius.circular(16)),
-      child: Row(
-        children: [
-          Icon(icon, color: isDestructive ? AppColors.secondaryColor : AppColors.secondaryColor, size: 26),
-          const SizedBox(width: 14),
-
-          // Title + Subtitle
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: isDestructive ? AppColors.secondaryColor : AppColors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                if (subtitle.isNotEmpty)
-                  Text(subtitle, style: TextStyle(color: AppColors.secondaryColor, fontSize: 13)),
-              ],
-            ),
-          ),
-
-          // trailing button
-          if (trailing != null)
-            Text(
-              trailing!,
-              style: TextStyle(color: AppColors.secondaryColor, fontWeight: FontWeight.w600),
-            ),
-
-          // switch
-          if (switchButton) Switch(value: true, onChanged: (_) {}, activeColor: AppColors.secondaryColor),
-        ],
-      ),
-    );
-  }
-}

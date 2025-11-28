@@ -40,7 +40,7 @@ class HistoryScreen extends StatelessWidget {
           },
           color: AppColors.backgroundColor,
           child: ListView.separated(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(18),
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: controller.transactions.length,
             itemBuilder: (context, index) {

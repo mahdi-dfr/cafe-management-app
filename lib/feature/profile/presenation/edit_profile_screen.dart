@@ -2,7 +2,7 @@ import 'package:cafe_app/core/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/resource/app_colors.dart';
-import 'profile_controller.dart';
+import 'controller/profile_controller.dart';
 import '../../../core/widgets/custom_text_field.dart';
 
 /// Edit profile screen

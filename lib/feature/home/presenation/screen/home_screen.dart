@@ -1,6 +1,7 @@
 
 import 'package:cafe_app/feature/menu/presentation/menu_Screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
+    final HomeController controller = Get.find<HomeController>();
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
         bottom: false,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

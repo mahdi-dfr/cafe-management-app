@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../muck_models/user_model.dart';
+import '../../../../muck_models/user_model.dart';
 
 /// Controller for Profile Screen managing user data
 class ProfileController extends GetxController {
