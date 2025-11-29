@@ -1,4 +1,5 @@
 import 'package:cafe_app/core/resource/app_colors.dart';
+import 'package:cafe_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -334,7 +335,7 @@ class CommodityDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 28),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -349,6 +350,25 @@ class CommodityDetailsScreen extends StatelessWidget {
                 onPressed: () {Get.to(AddCommodityScreen());},
                 child: const Text(
                   'ویرایش کالا',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(height: 12,),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: AppColors.backgroundColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                onPressed: () {Get.to(AddCommodityScreen());},
+                child: const Text(
+                  'حذف کالا',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

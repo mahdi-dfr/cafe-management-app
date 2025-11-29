@@ -97,6 +97,20 @@ class _PersonnelListState extends State<PersonnelList>
                   name: '${personnelList[index].firstName!} ${personnelList[index].lastName!}',
                   avatarUrl: personnelList[index].avatar!,
                   onTap: () => Get.to( StaffProfilePage(personnel: personnelList[index])),
+                  onLongTap: (){
+                    Get.defaultDialog(
+                      title: "حذف کاربر",
+                      titleStyle: TextStyle(color: AppColors.secondaryColor),
+                      middleText: "آیا از حذف این کاربر مطمئن هستید؟",
+                      textCancel: "انصراف",
+                      backgroundColor: AppColors.backgroundColor,
+                      textConfirm: "حذف",
+                      confirmTextColor: Colors.white,
+                      onConfirm: () {
+                        Get.back();
+                      },
+                    );
+                  },
                 );
               },
             ),

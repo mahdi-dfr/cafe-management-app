@@ -5,12 +5,13 @@ class PersonnelCard extends StatelessWidget {
   final String name;
   final String avatarUrl;
   final Function() onTap;
+  final Function()? onLongTap;
 
   const PersonnelCard({
     super.key,
     required this.name,
     required this.avatarUrl,
-    required this.onTap,
+    required this.onTap, this.onLongTap,
   });
 
   @override
@@ -21,6 +22,7 @@ class PersonnelCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
+        onLongPress: onLongTap,
         borderRadius: BorderRadius.circular(12),
         hoverColor: Colors.white.withOpacity(0.15),
         splashColor: Colors.white.withOpacity(0.2),
