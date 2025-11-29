@@ -1,8 +1,10 @@
 import 'package:cafe_app/muck_models/personnle_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/resource/app_colors.dart';
 import '../../home/presenation/widgets/personnle/user_management.dart';
+import 'create_charter.dart';
 
 class GroupCharter extends StatefulWidget {
   const GroupCharter({super.key});
@@ -11,7 +13,7 @@ class GroupCharter extends StatefulWidget {
   State<GroupCharter> createState() => _GroupCharterState();
 }
 
-class _GroupCharterState extends State<GroupCharter>  with SingleTickerProviderStateMixin{
+class _GroupCharterState extends State<GroupCharter> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   double lastOffset = 0;
   bool isScrollingDown = false;
@@ -19,11 +21,7 @@ class _GroupCharterState extends State<GroupCharter>  with SingleTickerProviderS
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-      value: 1,
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200), value: 1);
   }
 
   @override
@@ -41,7 +39,7 @@ class _GroupCharterState extends State<GroupCharter>  with SingleTickerProviderS
           scale: _controller,
           child: FloatingActionButton(
             onPressed: () {
-
+              Get.to(CreateCharter());
             },
             backgroundColor: AppColors.secondaryColor,
             child: Icon(Icons.add, color: AppColors.backgroundColor),
@@ -83,7 +81,8 @@ class _GroupCharterState extends State<GroupCharter>  with SingleTickerProviderS
                   icon: Icons.warning_amber_outlined,
                   title: 'قوانین مجموعه',
                   subtitle: charter[index],
-                  accent: AppColors.secondaryColor,);
+                  accent: AppColors.secondaryColor,
+                );
               },
               separatorBuilder: (context, index) {
                 return SizedBox(height: 12);
