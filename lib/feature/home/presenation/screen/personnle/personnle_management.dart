@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/constants/constant.dart';
-import '../../../../../core/resource/assets_route.dart';
 import '../../../../../muck_models/personnle_model.dart';
 import 'add_user_screen.dart';
 
@@ -21,6 +20,7 @@ class _PersonnelListState extends State<PersonnelList>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   double lastOffset = 0;
+  bool isScrollingDown = false;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _PersonnelListState extends State<PersonnelList>
     super.dispose();
   }
 
-  bool isScrollingDown = false;
+
 
   @override
   Widget build(BuildContext context) {
