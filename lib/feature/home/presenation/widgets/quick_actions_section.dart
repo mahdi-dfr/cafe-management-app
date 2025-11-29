@@ -26,23 +26,23 @@ class QuickActionsSection extends StatelessWidget {
             Expanded(
               child: ActionCard(
                 icon: Icons.local_cafe,
-                title: 'سفارش الان',
+                title: 'سفارش ها',
                 color: AppColors.info,
               ),
             ),
             const SizedBox(width: 15),
             Expanded(
               child: ActionCard(
-                icon: Icons.card_giftcard,
-                title: 'کارت هدیه',
+                icon: Icons.report,
+                title: 'گزارش گیری',
                 color: AppColors.info,
               ),
             ),
             const SizedBox(width: 15),
             Expanded(
               child: ActionCard(
-                icon: Icons.store,
-                title: 'موقعیت‌ها',
+                icon: Icons.attach_money_outlined,
+                title: 'حسابداری',
                 color: AppColors.info,
               ),
             ),
