@@ -2,7 +2,7 @@ import 'package:cafe_app/muck_models/personnle_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/resource/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../home/presenation/widgets/personnle/user_management.dart';
 import 'create_charter.dart';
 

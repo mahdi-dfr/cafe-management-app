@@ -1,4 +1,4 @@
-import 'package:cafe_app/core/resource/app_colors.dart';
+import 'package:cafe_app/core/constants/app_colors.dart';
 import 'package:cafe_app/core/widgets/custom_button.dart';
 import 'package:cafe_app/core/widgets/custom_text_field.dart';
 import 'package:cafe_app/feature/menu/presentation/controller/charter_controller.dart';

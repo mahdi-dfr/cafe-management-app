@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/resource/app_colors.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../muck_models/transaction_model.dart';
 import '../../../history/presenation/widgets/transaction_status_helper.dart';
 

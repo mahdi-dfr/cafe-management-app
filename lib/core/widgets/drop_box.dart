@@ -1,5 +1,5 @@
 
-import 'package:cafe_app/core/resource/app_colors.dart';
+import 'package:cafe_app/core/constants/app_colors.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

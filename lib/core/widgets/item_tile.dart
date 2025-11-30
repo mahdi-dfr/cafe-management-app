@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resource/app_colors.dart';
+import '../constants/app_colors.dart';
 
 class ItemTile extends StatelessWidget {
   final String title;

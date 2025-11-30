@@ -1,4 +1,5 @@
 import 'package:cafe_app/feature/menu/presentation/menu_Screen.dart';
+import 'package:cafe_app/feature/profile/presenation/login_screen.dart';
 import 'package:cafe_app/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +14,13 @@ class RouteManagement {
   static String mainNavigation = '/main';
   static String transactionDetail = '/transaction-detail';
   static String menu = '/menu';
+  static String login = '/login';
 
   static final List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: mainNavigation, page: () => MainNavigation()),
     GetPage(name: menu, page: () => MenuScreen()),
+    GetPage(name: login, page: () => LoginScreen()),
     GetPage(
       name: '/transaction-detail',
       page: () {

@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'package:cafe_app/core/resource/route_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../core/resource/app_colors.dart';
-import '../core/resource/assets_route.dart';
+import '../core/constants/app_colors.dart';
+import '../core/constants/assets_route.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -77,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   // }
 
   void _navigateToHome() {
-    Get.offAllNamed('/main');
+    Get.offAllNamed(RouteManagement.login);
   }
 
   @override

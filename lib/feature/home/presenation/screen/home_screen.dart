@@ -6,9 +6,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/constants/route_management.dart';
-import '../../../../core/resource/app_colors.dart';
-import '../../../../core/resource/assets_route.dart';
+import '../../../../core/resource/route_management.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/assets_route.dart';
 import '../controller/home_controller.dart';
 import '../widgets/quick_actions_section.dart';
 import '../widgets/quick_stats_section.dart';

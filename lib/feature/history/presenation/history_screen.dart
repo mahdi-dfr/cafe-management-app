@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/resource/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'history_controller.dart';
 import 'widgets/transaction_card.dart';
 

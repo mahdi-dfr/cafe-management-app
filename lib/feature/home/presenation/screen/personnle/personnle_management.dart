@@ -1,5 +1,5 @@
 
-import 'package:cafe_app/core/resource/app_colors.dart';
+import 'package:cafe_app/core/constants/app_colors.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnle/personnel_item.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnle/user_management.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:cafe_app/muck_models/personnle_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/resource/app_colors.dart';
+import '../../../../../core/constants/app_colors.dart';
 import '../../screen/personnle/personnle_management.dart';
 
 class UserInfoWidget extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:cafe_app/feature/profile/presenation/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/resource/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/item_tile.dart';
 
 class ProfileScreen extends StatelessWidget {

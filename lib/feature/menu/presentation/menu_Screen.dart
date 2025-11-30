@@ -2,7 +2,7 @@ import 'package:cafe_app/core/widgets/item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/resource/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'group_charter.dart';
 
 class MenuScreen extends StatelessWidget {

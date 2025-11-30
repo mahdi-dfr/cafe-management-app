@@ -1,4 +1,4 @@
-import 'package:cafe_app/core/resource/assets_route.dart';
+import 'package:cafe_app/core/constants/assets_route.dart';
 
 class PersonnelModel {
   int? id;

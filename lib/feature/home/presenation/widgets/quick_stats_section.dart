@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/resource/app_colors.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../controller/home_controller.dart';
 import '../screen/personnle/personnle_management.dart';
 import '../screen/inventory/warehouse_management.dart';
