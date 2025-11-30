@@ -114,7 +114,6 @@ class EditProfileForm extends StatelessWidget {
           keyboardType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 20),
-        // Mobile Input (Disabled)
         CustomTextField(
           controller: controller.mobileController,
           label: 'شماره موبایل',

@@ -43,6 +43,12 @@ class _PersonnelListState extends State<PersonnelList>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('مدیریت پرسنل'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       floatingActionButton: FadeTransition(
         opacity: _controller,
         child: ScaleTransition(

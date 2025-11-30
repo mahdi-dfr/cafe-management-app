@@ -74,6 +74,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   ),
                   items: widget.items
                       .map((String item) => DropdownMenuItem<String>(
+
                             value: item,
                             child: Text(
                               item,
@@ -86,6 +87,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                           ))
                       .toList(),
                   value: selectedValue,
+
                   onChanged: (value) {
                     setState(() {
                       selectedValue = value;
@@ -105,7 +107,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                       border: Border.all(
                         color: Colors.white12,
                       ),
-                      color: widget.color,
+                      color: AppColors.cardBackground,
                     ),
                     elevation: 0,
                   ),
@@ -124,7 +126,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     width: screenWidth > 600 ? screenWidth/2 : widget.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
-                      color: widget.color,
+                      color: AppColors.splashForeground,
+
                     ),
                     offset: const Offset(0, 0),
                     scrollbarTheme: ScrollbarThemeData(

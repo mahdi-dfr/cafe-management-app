@@ -16,7 +16,9 @@ class CreateCharter extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       bottomNavigationBar: CustomConfirmButton(
         title: 'ذخیره اطلاعات',
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+        },
         textColor: AppColors.backgroundColor,
         buttonColor: AppColors.primaryColor,
       ),

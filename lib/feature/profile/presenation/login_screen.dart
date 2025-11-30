@@ -1,4 +1,5 @@
 import 'package:cafe_app/core/constants/app_colors.dart';
+import 'package:cafe_app/core/resource/route_management.dart';
 import 'package:cafe_app/core/widgets/custom_button.dart';
 import 'package:cafe_app/core/widgets/custom_text_field.dart';
 import 'package:cafe_app/feature/profile/presenation/controller/login_controller.dart';
@@ -18,7 +19,9 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       bottomNavigationBar: CustomConfirmButton(
-          title: 'ورود به برنامه', onPressed: () {},
+          title: 'ورود به برنامه', onPressed: () {
+            Get.offAllNamed(RouteManagement.mainNavigation);
+      },
         textColor: AppColors.backgroundColor,
         buttonColor: AppColors.primaryColor,
       ),
@@ -41,7 +44,7 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 25),
             CustomTextField(
-              controller: _controller.username,
+              controller: _controller.password,
               label: 'رمز عبور',
               isPassword: true,
               icon: Icons.security,
