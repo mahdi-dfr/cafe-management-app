@@ -1,8 +1,9 @@
+import 'package:cafe_app/feature/history/presenation/widgets/transaction_status_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constants/app_colors.dart';
 import 'history_controller.dart';
-import 'widgets/transaction_card.dart';
+import '../../../core/widgets/card_list.dart';
 
 /// History screen displaying list of transactions
 class HistoryScreen extends StatelessWidget {
@@ -17,17 +18,12 @@ class HistoryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
-        title: const Text(
-          'تاریخچه تراکنش‌ها',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-        ),
+        title: const Text('تاریخچه تراکنش‌ها', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         centerTitle: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return Center(
-            child: CircularProgressIndicator(color: AppColors.backgroundColor),
-          );
+          return Center(child: CircularProgressIndicator(color: AppColors.backgroundColor));
         }
 
         if (controller.transactions.isEmpty) {
@@ -45,7 +41,17 @@ class HistoryScreen extends StatelessWidget {
             itemCount: controller.transactions.length,
             itemBuilder: (context, index) {
               final transaction = controller.transactions[index];
-              return TransactionCard(transaction: transaction);
+              return CustomInfoCard(
+                icon: TransactionStatusHelper.getStatusIcon(transaction.status),
+                iconColor: TransactionStatusHelper.getStatusColor(transaction.status),
+                title: transaction.title,
+                subtitle: transaction.description,
+                onTap:  (){},
+                trailingText: transaction.amount.toString(),
+                statusText: TransactionStatusHelper.getStatusText(transaction.status),
+                statusColor: AppColors.tertiaryColor,
+
+              );
             },
             separatorBuilder: (BuildContext context, int index) {
               return SizedBox(height: 16);
@@ -67,19 +73,11 @@ class EmptyTransactionState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.receipt_long_outlined,
-            size: 100,
-            color: AppColors.textSecondary,
-          ),
+          Icon(Icons.receipt_long_outlined, size: 100, color: AppColors.textSecondary),
           const SizedBox(height: 20),
           Text(
             'هنوز تراکنشی وجود ندارد',
-            style: TextStyle(
-              fontSize: 20,
-              color: AppColors.textSecondary,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 20, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
             textDirection: TextDirection.rtl,
           ),
           const SizedBox(height: 10),

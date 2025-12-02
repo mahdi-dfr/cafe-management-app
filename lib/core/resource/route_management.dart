@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../feature/history/presenation/transaction_detail_screen.dart'
     show TransactionDetailScreen;
+import '../../feature/menu/presentation/notification_screen.dart';
 import '../../screens/main_navigation.dart';
 
 class RouteManagement {
@@ -15,12 +16,14 @@ class RouteManagement {
   static String transactionDetail = '/transaction-detail';
   static String menu = '/menu';
   static String login = '/login';
+  static String notification = '/notification';
 
   static final List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: mainNavigation, page: () => MainNavigation()),
     GetPage(name: menu, page: () => MenuScreen()),
     GetPage(name: login, page: () => LoginScreen()),
+    GetPage(name: notification, page: () => NotificationScreen()),
     GetPage(
       name: '/transaction-detail',
       page: () {

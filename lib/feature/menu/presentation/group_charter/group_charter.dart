@@ -1,10 +1,11 @@
+import 'package:cafe_app/core/constants/app_colors.dart';
 import 'package:cafe_app/muck_models/personnle_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../home/presenation/widgets/personnle/user_management.dart';
+import '../../../home/presenation/widgets/personnle/user_management.dart';
 import 'create_charter.dart';
+
 
 class GroupCharter extends StatefulWidget {
   const GroupCharter({super.key});

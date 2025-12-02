@@ -48,6 +48,13 @@ class HomeScreen extends StatelessWidget {
           leading: IconButton(onPressed: (){
             Get.toNamed(RouteManagement.menu);
           }, icon: Icon(Icons.menu, color: AppColors.textPrimary,)),
+          actions: [
+            Badge(
+              child: IconButton(onPressed: (){
+                Get.toNamed(RouteManagement.notification);
+              }, icon: Icon(Icons.notifications, color: AppColors.textPrimary,)),
+            ),
+          ],
         ),
         body: SafeArea(
           top: true,

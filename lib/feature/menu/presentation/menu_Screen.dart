@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/app_colors.dart';
-import 'group_charter.dart';
+import 'group_charter/group_charter.dart';
+import 'off_details/off_calender.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -36,7 +37,9 @@ class MenuScreen extends StatelessWidget {
                   title: 'لیست آف پرسنل',
                   subtitle: 'نمایش جامع وضعیت آف پرسنل',
                   icon: Icons.person,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(OffCalender());
+                  },
                 ),
                 SizedBox(height: 14),
                 ItemTile(

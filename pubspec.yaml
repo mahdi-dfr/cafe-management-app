@@ -72,6 +72,7 @@ flutter:
     - assets/images/main_logo.svg
     - assets/images/shooka_logo.svg
     - assets/images/img.png
+    - assets/images/calender.png
     - assets/anim/cafe1.json
     - assets/anim/cafe2.json
   #   - images/a_dot_ham.jpeg
