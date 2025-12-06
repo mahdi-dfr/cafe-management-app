@@ -103,8 +103,8 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
                   items: _currentList,
                   onTap: (item) => Get.to(() => CommodityDetailsScreen(item: item)), onLongPressed: () {
                     appDialog(
-                        title: 'انتقال به اقلام دور ریز',
-                        content: 'این کالا به اقلام دور ریز منتقل شود؟',
+                        title: 'حذف کالا',
+                        content: 'آیا این کالا را حذف میکنید؟',
                         cancelText: 'انصراف',
                         confirmText: 'بله',
                         onConfirm: () => Get.back()
@@ -341,7 +341,7 @@ class CommodityDetailsScreen extends StatelessWidget {
                 onPressed: () {
                   Get.to(AddCommodityScreen());
                 },
-                child: const Text('حذف کالا', style: TextStyle(fontWeight: FontWeight.bold)),
+                child: const Text('انتقال به اقلام دور ریز', style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ],
