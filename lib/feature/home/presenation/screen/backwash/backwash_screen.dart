@@ -4,34 +4,97 @@ import 'package:flutter/material.dart';
 
 import '../../../../../muck_models/models.dart';
 
-class BackwashScreen extends StatelessWidget {
+class BackwashScreen extends StatefulWidget {
   const BackwashScreen({super.key});
+
+  @override
+  State<BackwashScreen> createState() => _BackwashScreenState();
+}
+
+class _BackwashScreenState extends State<BackwashScreen> {
+  int selectedDayIndex = 0;
+
+  final List<String> weekDays = [
+    "شنبه",
+    "یکشنبه",
+    "دوشنبه",
+    "سه‌شنبه",
+    "چهارشنبه",
+    "پنجشنبه",
+    "جمعه",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('بک واش'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('بک واش'),
+        centerTitle: true,
+      ),
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return CustomInfoCard(
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
 
-                icon: Icons.water_rounded,
-                iconColor: backwashList[index].status! ?  AppColors.secondaryColor : Colors.red,
-                title: backwashList[index].title!,
-                subtitle: backwashList[index].user!,
-                statusColor: backwashList[index].status! ?  AppColors.secondaryColor : Colors.red,
-                caption: backwashList[index].day!,
-              );
-            },
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 8);
-            },
-            itemCount: backwashList.length,
-          ),
+            SizedBox(
+              height: 48,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: weekDays.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 8),
+                itemBuilder: (context, index) {
+                  final bool isActive = index == selectedDayIndex;
+                  return ChoiceChip(
+                    label: Text(
+                      weekDays[index],
+                      style: TextStyle(
+                        color: isActive ? Colors.white : AppColors.secondaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    selected: isActive,
+                    onSelected: (_) {
+                      setState(() => selectedDayIndex = index);
+                    },
+                    selectedColor: AppColors.secondaryColor,
+                    backgroundColor: AppColors.tertiaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    ///todo : filter based on day
+                    // backwashList[index].day == weekDays[selectedDayIndex]
+                    final item = backwashList[index];
+
+                    return CustomInfoCard(
+                      icon: Icons.water_rounded,
+                      iconColor:
+                      item.status! ? AppColors.secondaryColor : Colors.red,
+                      title: item.title!,
+                      subtitle: item.user!,
+                      statusColor:
+                      item.status! ? AppColors.secondaryColor : Colors.red,
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(height: 8),
+                  itemCount: backwashList.length,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
