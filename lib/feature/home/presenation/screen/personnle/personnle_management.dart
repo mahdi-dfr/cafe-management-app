@@ -1,4 +1,3 @@
-
 import 'package:cafe_app/core/constants/app_colors.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnle/personnel_item.dart';
 import 'package:cafe_app/feature/home/presenation/widgets/personnle/user_management.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/constants/constant.dart';
+import '../../../../../core/resource/resource.dart';
 import '../../../../../muck_models/personnle_model.dart';
 import 'add_user_screen.dart';
 
@@ -16,8 +16,7 @@ class PersonnelList extends StatefulWidget {
   State<PersonnelList> createState() => _PersonnelListState();
 }
 
-class _PersonnelListState extends State<PersonnelList>
-    with SingleTickerProviderStateMixin {
+class _PersonnelListState extends State<PersonnelList> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   double lastOffset = 0;
   bool isScrollingDown = false;
@@ -25,11 +24,7 @@ class _PersonnelListState extends State<PersonnelList>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-      value: 1,
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200), value: 1);
   }
 
   @override
@@ -37,8 +32,6 @@ class _PersonnelListState extends State<PersonnelList>
     _controller.dispose();
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,22 +89,18 @@ class _PersonnelListState extends State<PersonnelList>
                 crossAxisSpacing: 12.0,
                 childAspectRatio: 0.95,
               ),
-              itemCount: personnelList.length
-              ,
+              itemCount: personnelList.length,
               itemBuilder: (context, index) {
                 return PersonnelCard(
                   name: '${personnelList[index].firstName!} ${personnelList[index].lastName!}',
                   avatarUrl: personnelList[index].avatar!,
-                  onTap: () => Get.to( StaffProfilePage(personnel: personnelList[index])),
-                  onLongTap: (){
-                    Get.defaultDialog(
-                      title: "حذف کاربر",
-                      titleStyle: TextStyle(color: AppColors.secondaryColor),
-                      middleText: "آیا از حذف این کاربر مطمئن هستید؟",
-                      textCancel: "انصراف",
-                      backgroundColor: AppColors.backgroundColor,
-                      textConfirm: "حذف",
-                      confirmTextColor: Colors.white,
+                  onTap: () => Get.to(StaffProfilePage(personnel: personnelList[index])),
+                  onLongTap: () {
+                    appDialog(
+                      title: 'حذف کاربر',
+                      content: 'آیا از حذف این کاربر مطمئن هستید؟',
+                      cancelText: 'انصراف',
+                      confirmText: 'حذف',
                       onConfirm: () {
                         Get.back();
                       },
@@ -140,23 +129,16 @@ class StaffProfilePage extends StatefulWidget {
   State<StaffProfilePage> createState() => _StaffProfilePageState();
 }
 
-class _StaffProfilePageState extends State<StaffProfilePage>
-    with SingleTickerProviderStateMixin {
+class _StaffProfilePageState extends State<StaffProfilePage> with SingleTickerProviderStateMixin {
   int _selectedTabIndex = 0;
   late final AnimationController _animController;
 
   final String profileImage = AppConstants.img;
 
-
-
-
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
+    _animController = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
     _animController.forward();
   }
 
@@ -209,17 +191,10 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                       const SizedBox(height: 12),
                       Text(
                         '${widget.personnel.firstName!} ${widget.personnel.lastName!}',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        widget.personnel.position!,
-                        style: TextStyle(fontSize: 15),
-                      ),
+                      Text(widget.personnel.position!, style: TextStyle(fontSize: 15)),
                     ],
                   ),
 
@@ -261,10 +236,10 @@ class _StaffProfilePageState extends State<StaffProfilePage>
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 350),
                     child: _selectedTabIndex == 0
-                        ? UserInfoWidget(personnel: widget.personnel,)
+                        ? UserInfoWidget(personnel: widget.personnel)
                         : _selectedTabIndex == 1
                         ? UserResponsibilitiesWidget()
-                        : UserNoteWidget() ,
+                        : UserNoteWidget(),
                   ),
                 ],
               ),
@@ -275,4 +250,3 @@ class _StaffProfilePageState extends State<StaffProfilePage>
     );
   }
 }
-

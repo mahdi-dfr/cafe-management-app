@@ -1,4 +1,5 @@
 import 'package:cafe_app/core/constants/app_colors.dart';
+import 'package:cafe_app/core/resource/resource.dart';
 import 'package:cafe_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,7 @@ class WarehouseManagementScreen extends StatefulWidget {
   const WarehouseManagementScreen({super.key});
 
   @override
-  State<WarehouseManagementScreen> createState() =>
-      _WarehouseManagementScreenState();
+  State<WarehouseManagementScreen> createState() => _WarehouseManagementScreenState();
 }
 
 class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
@@ -57,8 +57,7 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
     ),
   ];
 
-  List<WarehouseItem> get _currentList =>
-      _selectedSegment == 0 ? _physicalCommodities : _edibleCommodities;
+  List<WarehouseItem> get _currentList => _selectedSegment == 0 ? _physicalCommodities : _edibleCommodities;
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +69,15 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primaryColor,
-        onPressed: () => Get.to( AddCommodityScreen()),
-        child: Icon(Icons.add, color: AppColors.backgroundColor),
-      ),
+      floatingActionButton: _selectedSegment == 2
+          ? null
+          : FloatingActionButton(
+              backgroundColor: AppColors.primaryColor,
+              onPressed: () {
+                Get.to(AddCommodityScreen());
+              },
+              child: Icon(Icons.add, color: AppColors.backgroundColor),
+            ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -88,16 +91,25 @@ class _WarehouseManagementScreenState extends State<WarehouseManagementScreen> {
               ),
               const SizedBox(height: 20),
               WarehouseSegmentedFilter(
-                segments: const ['کالاهای فیزیکی', 'مواد خوراکی'],
+                segments: const ['کالاهای فیزیکی', 'مواد خوراکی', 'اقلام دور ریز'],
                 selectedIndex: _selectedSegment,
-                onChanged: (index) => setState(() => _selectedSegment = index),
+                onChanged: (index) {
+                  setState(() => _selectedSegment = index);
+                },
               ),
               const SizedBox(height: 16),
               Expanded(
                 child: CommodityListSection(
                   items: _currentList,
-                  onTap: (item) =>
-                      Get.to(() => CommodityDetailsScreen(item: item)),
+                  onTap: (item) => Get.to(() => CommodityDetailsScreen(item: item)), onLongPressed: () {
+                    appDialog(
+                        title: 'انتقال به اقلام دور ریز',
+                        content: 'این کالا به اقلام دور ریز منتقل شود؟',
+                        cancelText: 'انصراف',
+                        confirmText: 'بله',
+                        onConfirm: () => Get.back()
+                    );
+                },
                 ),
               ),
             ],
@@ -124,10 +136,7 @@ class WarehouseSegmentedFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.tertiaryColor,
-        borderRadius: BorderRadius.circular(30),
-      ),
+      decoration: BoxDecoration(color: AppColors.tertiaryColor, borderRadius: BorderRadius.circular(30)),
       child: Row(
         children: segments.asMap().entries.map((entry) {
           final index = entry.key;
@@ -141,14 +150,9 @@ class WarehouseSegmentedFilter extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 4),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: active
-                      ? AppColors.primaryColor.withOpacity(0.2)
-                      : Colors.transparent,
+                  color: active ? AppColors.primaryColor.withOpacity(0.2) : Colors.transparent,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: active ? AppColors.primaryColor : Colors.transparent,
-                    width: 1.2,
-                  ),
+                  border: Border.all(color: active ? AppColors.primaryColor : Colors.transparent, width: 1.2),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -170,11 +174,13 @@ class WarehouseSegmentedFilter extends StatelessWidget {
 class CommodityListSection extends StatelessWidget {
   final List<WarehouseItem> items;
   final ValueChanged<WarehouseItem> onTap;
+  final VoidCallback onLongPressed;
 
   const CommodityListSection({
     super.key,
     required this.items,
     required this.onTap,
+    required this.onLongPressed,
   });
 
   @override
@@ -184,7 +190,7 @@ class CommodityListSection extends StatelessWidget {
       separatorBuilder: (_, __) => const SizedBox(height: 14),
       itemBuilder: (context, index) {
         final item = items[index];
-        return CommodityCard(item: item, onTap: () => onTap(item));
+        return CommodityCard(item: item, onTap: () => onTap(item), onLongPressed: onLongPressed);
       },
     );
   }
@@ -193,13 +199,15 @@ class CommodityListSection extends StatelessWidget {
 class CommodityCard extends StatelessWidget {
   final WarehouseItem item;
   final VoidCallback onTap;
+  final VoidCallback onLongPressed;
 
-  const CommodityCard({super.key, required this.item, required this.onTap});
+  const CommodityCard({super.key, required this.item, required this.onTap, required this.onLongPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongPressed,
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -207,18 +215,14 @@ class CommodityCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.white12),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
-            ),
+            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 12, offset: const Offset(0, 6)),
           ],
         ),
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Icon(Icons.inventory, color: AppColors.secondaryColor, size: 30,),
+              child: Icon(Icons.inventory, color: AppColors.secondaryColor, size: 30),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -227,36 +231,16 @@ class CommodityCard extends StatelessWidget {
                 children: [
                   Text(
                     item.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    item.subtitle,
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text(item.subtitle, style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(
-                        Icons.inventory_2_outlined,
-                        size: 16,
-                        color: AppColors.primaryColor,
-                      ),
+                      Icon(Icons.inventory_2_outlined, size: 16, color: AppColors.primaryColor),
                       const SizedBox(width: 6),
-                      Text(
-                        item.quantityLabel,
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 12,
-                        ),
-                      ),
+                      Text(item.quantityLabel, style: TextStyle(color: AppColors.primaryColor, fontSize: 12)),
                     ],
                   ),
                 ],
@@ -267,10 +251,7 @@ class CommodityCard extends StatelessWidget {
               children: [
                 Text(
                   item.price,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 6),
                 Icon(Icons.chevron_right, color: AppColors.textSecondary),
@@ -326,11 +307,7 @@ class CommodityDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: _MiniStatCard(
-                      label: 'قیمت واحد',
-                      value: item.price,
-                      icon: Icons.attach_money,
-                    ),
+                    child: _MiniStatCard(label: 'قیمت واحد', value: item.price, icon: Icons.attach_money),
                   ),
                 ],
               ),
@@ -343,18 +320,15 @@ class CommodityDetailsScreen extends StatelessWidget {
                   backgroundColor: AppColors.primaryColor,
                   foregroundColor: AppColors.backgroundColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
-                onPressed: () {Get.to(AddCommodityScreen());},
-                child: const Text(
-                  'ویرایش کالا',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                onPressed: () {
+                  Get.to(AddCommodityScreen());
+                },
+                child: const Text('ویرایش کالا', style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
-            SizedBox(height: 12,),
+            SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -362,15 +336,12 @@ class CommodityDetailsScreen extends StatelessWidget {
                   backgroundColor: AppColors.primaryColor,
                   foregroundColor: AppColors.backgroundColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
-                onPressed: () {Get.to(AddCommodityScreen());},
-                child: const Text(
-                  'حذف کالا',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                onPressed: () {
+                  Get.to(AddCommodityScreen());
+                },
+                child: const Text('حذف کالا', style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -392,19 +363,12 @@ class CommodityDetailHeader extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(24),
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
-            child: Icon(Icons.inventory),
-          ),
+          child: AspectRatio(aspectRatio: 16 / 9, child: Icon(Icons.inventory)),
         ),
         const SizedBox(height: 14),
         Text(
           item.title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
-          ),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white),
         ),
         const SizedBox(height: 4),
         Text(item.category, style: TextStyle(color: AppColors.textSecondary)),
@@ -417,11 +381,7 @@ class CommodityDetailSection extends StatelessWidget {
   final String title;
   final Widget child;
 
-  const CommodityDetailSection({
-    super.key,
-    required this.title,
-    required this.child,
-  });
+  const CommodityDetailSection({super.key, required this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -437,11 +397,7 @@ class CommodityDetailSection extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 12),
           child,
@@ -456,11 +412,7 @@ class _MiniStatCard extends StatelessWidget {
   final String value;
   final IconData icon;
 
-  const _MiniStatCard({
-    required this.label,
-    required this.value,
-    required this.icon,
-  });
+  const _MiniStatCard({required this.label, required this.value, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -476,26 +428,17 @@ class _MiniStatCard extends StatelessWidget {
         children: [
           Icon(icon, color: AppColors.primaryColor),
           const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
-          ),
+          Text(label, style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
           const SizedBox(height: 4),
           Text(
             value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),
     );
   }
 }
-
-
-
 
 class CategoryDropdown extends StatelessWidget {
   final String label;
@@ -548,8 +491,6 @@ class CategoryDropdown extends StatelessWidget {
     );
   }
 }
-
-
 
 class WarehouseItem {
   final String title;
