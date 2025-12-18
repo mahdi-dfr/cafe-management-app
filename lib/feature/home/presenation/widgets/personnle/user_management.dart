@@ -508,14 +508,14 @@ class ResponsibilityItem {
 class ResponsibilityTile extends StatelessWidget {
   final IconData icon;
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final Color accent;
 
   const ResponsibilityTile({
     super.key,
     required this.icon,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.accent,
   });
 
@@ -542,7 +542,7 @@ class ResponsibilityTile extends StatelessWidget {
           ),
           const SizedBox(width: 14),
           Expanded(
-            child: Column(
+            child: subtitle != null ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -550,8 +550,11 @@ class ResponsibilityTile extends StatelessWidget {
                   style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
-                Text(subtitle, style: TextStyle(color: AppColors.textSecondary, fontSize: 13, height: 1.35)),
+                 Text(subtitle!, style: TextStyle(color: AppColors.textSecondary, fontSize: 13, height: 1.35)),
               ],
+            ) : Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
         ],

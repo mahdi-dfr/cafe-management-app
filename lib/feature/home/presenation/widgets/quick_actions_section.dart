@@ -2,6 +2,7 @@ import 'package:cafe_app/feature/home/presenation/screen/backwash/backwash_scree
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../screen/orders/orders_screen.dart';
 import 'action_card.dart';
 
 /// Quick actions section widget
@@ -30,7 +31,9 @@ class QuickActionsSection extends StatelessWidget {
               ActionCard(
                 icon: Icons.local_cafe,
                 title: 'سفارش ها',
-                color: AppColors.info, onTap: () {  },
+                color: AppColors.info, onTap: () {
+                  Get.to(CafeTablesScreen());
+              },
               ),
               const SizedBox(width: 15),
               ActionCard(

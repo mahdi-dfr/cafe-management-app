@@ -79,9 +79,8 @@ class _GroupCharterState extends State<GroupCharter> with SingleTickerProviderSt
             child: ListView.separated(
               itemBuilder: (context, index) {
                 return ResponsibilityTile(
-                  icon: Icons.warning_amber_outlined,
-                  title: 'قوانین مجموعه',
-                  subtitle: charter[index],
+                  icon: Icons.done_outline_outlined,
+                  title: charter[index],
                   accent: AppColors.secondaryColor,
                 );
               },
