@@ -4,25 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../muck_models/models.dart';
 
-class BackwashScreen extends StatefulWidget {
+class BackwashScreen extends StatelessWidget {
   const BackwashScreen({super.key});
-
-  @override
-  State<BackwashScreen> createState() => _BackwashScreenState();
-}
-
-class _BackwashScreenState extends State<BackwashScreen> {
-  int selectedDayIndex = 0;
-
-  final List<String> weekDays = [
-    "شنبه",
-    "یکشنبه",
-    "دوشنبه",
-    "سه‌شنبه",
-    "چهارشنبه",
-    "پنجشنبه",
-    "جمعه",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +20,7 @@ class _BackwashScreenState extends State<BackwashScreen> {
           children: [
             const SizedBox(height: 10),
 
-            SizedBox(
-              height: 48,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: weekDays.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 8),
-                itemBuilder: (context, index) {
-                  final bool isActive = index == selectedDayIndex;
-                  return ChoiceChip(
-                    label: Text(
-                      weekDays[index],
-                      style: TextStyle(
-                        color: isActive ? Colors.white : AppColors.secondaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    selected: isActive,
-                    onSelected: (_) {
-                      setState(() => selectedDayIndex = index);
-                    },
-                    selectedColor: AppColors.secondaryColor,
-                    backgroundColor: AppColors.tertiaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  );
-                },
-              ),
-            ),
+            ChoiceDay(),
 
             const SizedBox(height: 12),
 
@@ -100,3 +54,59 @@ class _BackwashScreenState extends State<BackwashScreen> {
     );
   }
 }
+
+class ChoiceDay extends StatefulWidget {
+  const ChoiceDay({super.key});
+
+  @override
+  State<ChoiceDay> createState() => _ChoiceDayState();
+}
+
+class _ChoiceDayState extends State<ChoiceDay> {
+  int selectedDayIndex = 0;
+
+  final List<String> weekDays = [
+    "شنبه",
+    "یکشنبه",
+    "دوشنبه",
+    "سه‌شنبه",
+    "چهارشنبه",
+    "پنجشنبه",
+    "جمعه",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: weekDays.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final bool isActive = index == selectedDayIndex;
+          return ChoiceChip(
+            label: Text(
+              weekDays[index],
+              style: TextStyle(
+                color: isActive ? Colors.white : AppColors.secondaryColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            selected: isActive,
+            onSelected: (_) {
+              setState(() => selectedDayIndex = index);
+            },
+            selectedColor: AppColors.secondaryColor,
+            backgroundColor: AppColors.tertiaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+

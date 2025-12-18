@@ -8,26 +8,22 @@ class CafeTablesScreen extends StatefulWidget {
   State<CafeTablesScreen> createState() => _CafeTablesScreenState();
 }
 
-class _CafeTablesScreenState extends State<CafeTablesScreen>
-    with SingleTickerProviderStateMixin {
+class _CafeTablesScreenState extends State<CafeTablesScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
-  final List<TableModel> tables = List.generate(12, (index) => TableModel(
+  final List<TableModel> tables = List.generate(
+    12,
+    (index) => TableModel(
       number: index + 1,
       isOccupied: index % 3 == 0,
-      orders: index % 3 == 0
-          ? ['Espresso', 'Latte', 'Cheesecake']
-          : [],
+      orders: index % 3 == 0 ? ['Espresso', 'Latte', 'Cheesecake'] : [],
     ),
   );
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..forward();
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200))..forward();
   }
 
   @override
@@ -47,7 +43,7 @@ class _CafeTablesScreenState extends State<CafeTablesScreen>
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: GridView.builder(
           itemCount: tables.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,11 +55,7 @@ class _CafeTablesScreenState extends State<CafeTablesScreen>
           itemBuilder: (context, index) {
             final animation = CurvedAnimation(
               parent: _controller,
-              curve: Interval(
-                (index / tables.length),
-                1.0,
-                curve: Curves.easeOutBack,
-              ),
+              curve: Interval((index / tables.length), 1.0, curve: Curves.easeOutBack),
             );
 
             return ScaleTransition(
@@ -95,9 +87,7 @@ class TableCard extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 600),
             pageBuilder: (_, animation, __) => FadeTransition(
               opacity: animation,
-              child: table.isOccupied
-                  ? OrdersScreen(table: table)
-                  : CreateOrderScreen(table: table),
+              child: !table.isOccupied ? OrdersScreen(table: table) : CreateOrderScreen(table: table),
             ),
           ),
         );
@@ -108,16 +98,10 @@ class TableCard extends StatelessWidget {
           color: AppColors.cardBackground,
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.4),
-              blurRadius: 16,
-              offset: const Offset(0, 8),
-            ),
+            BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 8)),
           ],
           border: Border.all(
-            color: table.isOccupied
-                ? AppColors.surfaceColor
-                : AppColors.primaryColor,
+            color: !table.isOccupied ? AppColors.surfaceColor : AppColors.primaryColor,
             width: 1.5,
           ),
         ),
@@ -133,35 +117,31 @@ class TableCard extends StatelessWidget {
                       'Table ${table.number}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: !table.isOccupied ? Colors.white : AppColors.secondaryColor,
                       ),
                     ),
                   ),
-                  StatusDot(isOccupied: table.isOccupied),
+                  StatusDot(isOccupied: !table.isOccupied),
                 ],
               ),
+
               const Spacer(),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: table.isOccupied
                     ? Text(
-                  '${table.orders.length} Active Orders',
-                  key: const ValueKey('occupied'),
-                  style: TextStyle(
-                    color: AppColors.secondaryColor,
-                  ),
-                )
+                        '${table.orders.length} سفارش فعال',
+                        key: const ValueKey('occupied'),
+                        style: TextStyle(color: AppColors.secondaryColor),
+                      )
                     : Text(
-                  'Available',
-                  key: const ValueKey('free'),
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                        'در دسترس',
+                        key: const ValueKey('free'),
+                        style: TextStyle(color: AppColors.info, fontWeight: FontWeight.w600),
+                      ),
               ),
             ],
           ),
@@ -183,9 +163,7 @@ class StatusDot extends StatelessWidget {
       width: 14,
       height: 14,
       decoration: BoxDecoration(
-        color: isOccupied
-            ? AppColors.surfaceColor
-            : AppColors.primaryColor,
+        color: isOccupied ? AppColors.surfaceColor : AppColors.primaryColor,
         shape: BoxShape.circle,
       ),
     );
@@ -216,10 +194,7 @@ class OrdersScreen extends StatelessWidget {
               color: AppColors.cardBackground,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
-              table.orders[index],
-              style: const TextStyle(color: Colors.white, fontSize: 16),
-            ),
+            child: Text(table.orders[index], style: const TextStyle(color: Colors.white, fontSize: 16)),
           );
         },
       ),
@@ -246,8 +221,7 @@ class CreateOrderScreen extends StatelessWidget {
             backgroundColor: AppColors.primaryColor,
             foregroundColor: Colors.black,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           onPressed: () {},
           child: const Text('Add Items'),
@@ -262,11 +236,5 @@ class TableModel {
   final bool isOccupied;
   final List<String> orders;
 
-  TableModel({
-    required this.number,
-    required this.isOccupied,
-    required this.orders,
-  });
+  TableModel({required this.number, required this.isOccupied, required this.orders});
 }
-
-

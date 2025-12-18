@@ -1,11 +1,11 @@
-import 'package:cafe_app/feature/menu/presentation/menu_Screen.dart';
+import 'package:cafe_app/feature/menu/presentation/screens/menu_Screen.dart';
 import 'package:cafe_app/feature/profile/presenation/login_screen.dart';
 import 'package:cafe_app/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
 import '../../feature/history/presenation/transaction_detail_screen.dart'
     show TransactionDetailScreen;
-import '../../feature/menu/presentation/notification_screen.dart';
+import '../../feature/menu/presentation/screens/notification_screen.dart';
 import '../../screens/main_navigation.dart';
 
 class RouteManagement {

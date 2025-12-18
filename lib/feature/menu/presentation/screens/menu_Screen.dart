@@ -1,10 +1,10 @@
 import 'package:cafe_app/core/widgets/item_tile.dart';
+import 'package:cafe_app/feature/menu/presentation/screens/group_charter/group_charter.dart';
+import 'package:cafe_app/feature/menu/presentation/screens/off_details/off_calender.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/constants/app_colors.dart';
-import 'group_charter/group_charter.dart';
-import 'off_details/off_calender.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
