@@ -1,4 +1,6 @@
 import 'package:cafe_app/core/constants/app_colors.dart' show AppColors;
+import 'package:cafe_app/feature/home/presenation/screen/orders/cafe_menu_screen.dart';
+import 'package:cafe_app/muck_models/orders.dart';
 import 'package:flutter/material.dart';
 
 class CafeTablesScreen extends StatefulWidget {
@@ -87,7 +89,7 @@ class TableCard extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 600),
             pageBuilder: (_, animation, __) => FadeTransition(
               opacity: animation,
-              child: !table.isOccupied ? OrdersScreen(table: table) : CreateOrderScreen(table: table),
+              child: table.isOccupied ? OrdersScreen(table: table) : CreateOrderScreen(table: table),
             ),
           ),
         );
@@ -114,7 +116,7 @@ class TableCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Table ${table.number}',
+                      'میز ${table.number}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -212,7 +214,7 @@ class CreateOrderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: Text('New Order - Table ${table.number}'),
+        title: Text('سفارش جدید برای میز ${table.number}'),
         backgroundColor: AppColors.backgroundColor,
       ),
       body: Center(
@@ -223,7 +225,28 @@ class CreateOrderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
-          onPressed: () {},
+          onPressed: () {
+
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context)=> CafeMenuScreen())
+            );
+
+
+
+
+
+
+
+            // Navigator.of(context).push(
+            //   PageRouteBuilder(
+            //     transitionDuration: const Duration(milliseconds: 600),
+            //     pageBuilder: (_, animation, __) => FadeTransition(
+            //       opacity: animation,
+            //       child: table.isOccupied ? OrdersScreen(table: table) : CreateOrderScreen(table: table),
+            //     ),
+            //   ),
+            // );
+          },
           child: const Text('Add Items'),
         ),
       ),
@@ -231,10 +254,4 @@ class CreateOrderScreen extends StatelessWidget {
   }
 }
 
-class TableModel {
-  final int number;
-  final bool isOccupied;
-  final List<String> orders;
 
-  TableModel({required this.number, required this.isOccupied, required this.orders});
-}

@@ -1,4 +1,4 @@
-import 'package:cafe_app/feature/menu/presentation/screens/menu_Screen.dart';
+import 'package:cafe_app/feature/menu/presentation/screens/menu_screen.dart';
 import 'package:cafe_app/feature/profile/presenation/login_screen.dart';
 import 'package:cafe_app/screens/splash_screen.dart';
 import 'package:get/get.dart';
