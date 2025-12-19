@@ -2,79 +2,79 @@
 // Uses custom color palette, category sections, animated item selection
 
 import 'package:cafe_app/core/constants/app_colors.dart';
+import 'package:cafe_app/core/widgets/choiceCips.dart';
+import 'package:cafe_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CafeMenuScreen extends StatefulWidget {
-  const CafeMenuScreen({super.key});
+import '../../controller/cafe_menu_controller.dart';
 
-  @override
-  State<CafeMenuScreen> createState() => _CafeMenuScreenState();
-}
+class CafeMenuScreen extends StatelessWidget {
+  CafeMenuScreen({super.key});
 
-class _CafeMenuScreenState extends State<CafeMenuScreen>
-    with TickerProviderStateMixin {
   final Map<String, List<MenuItemModel>> menu = {
-    'Hot Drinks': [
-      MenuItemModel('Espresso', 1, true, '☕'),
-      MenuItemModel('Latte', 1, true, '🥛'),
-    ],
-    'Cold Drinks': [
-      MenuItemModel('Iced Coffee', 1, false, '🧊'),
-      MenuItemModel('Lemonade', 1, true, '🍋'),
-    ],
-    'Food': [
-      MenuItemModel('Burger', 1, true, '🍔'),
-      MenuItemModel('Pasta', 1, false, '🍝'),
-    ],
+    'Hot Drinks': [MenuItemModel('Espresso', 1, true, '☕'), MenuItemModel('Latte', 1, true, '🥛')],
+    'Cold Drinks': [MenuItemModel('Iced Coffee', 1, false, '🧊'), MenuItemModel('Lemonade', 1, true, '🍋')],
+    'Food': [MenuItemModel('Burger', 1, true, '🍔'), MenuItemModel('Pasta', 1, false, '🍝')],
   };
+
+  final _controller = Get.find<CafeMenuController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('Menu & Order'),
+        title: const Text('منوی کافه'),
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          ...menu.entries.map(
-                (category) => _CategorySection(category.key, category.value),
-          ),
-          const SizedBox(height: 32),
-          _SubmitOrderButton(),
-        ],
+      bottomNavigationBar: CustomConfirmButton(
+        title: 'ثبت',
+        textColor: AppColors.backgroundColor,
+        buttonColor: AppColors.primaryColor,
+        onPressed: () {
+          Get.back();
+        },
       ),
-    );
-  }
-}
 
-class _CategorySection extends StatelessWidget {
-  final String title;
-  final List<MenuItemModel> items;
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ChoiceChips(
+            choiceList: menu.keys.toList(),
+            onSelected: (data) {
+              _controller.menuCategory.value = data;
+              print(menu[_controller.menuCategory.value]!.length);
+            },
+          ),
 
-  const _CategorySection(this.title, this.items);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Obx(
+              () => Text(
+                _controller.menuCategory.value,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.primaryColor),
+              ),
             ),
           ),
-        ),
-        ...items.map((item) => _MenuItemTile(item)).toList(),
-      ],
+
+          Expanded(
+            child: Obx(() {
+              final items = menu[_controller.menuCategory.value]!;
+
+              return ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: items.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                itemBuilder: (_, index) {
+                  return _MenuItemTile(items[index]);
+                },
+              );
+            }),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -88,21 +88,18 @@ class _MenuItemTile extends StatefulWidget {
   State<_MenuItemTile> createState() => _MenuItemTileState();
 }
 
-class _MenuItemTileState extends State<_MenuItemTile>
-    with SingleTickerProviderStateMixin {
+class _MenuItemTileState extends State<_MenuItemTile> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scale;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 350),
-    );
-    _scale = Tween(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 350));
+    _scale = Tween(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
   }
 
   @override
@@ -133,52 +130,34 @@ class _MenuItemTileState extends State<_MenuItemTile>
               color: AppColors.cardBackground,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: widget.item.selected
-                    ? AppColors.primaryColor
-                    : AppColors.surfaceColor,
+                color: widget.item.selected ? AppColors.primaryColor : AppColors.surfaceColor,
                 width: 1.2,
               ),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.35),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                ),
+                BoxShadow(color: Colors.black.withOpacity(0.35), blurRadius: 12, offset: const Offset(0, 6)),
               ],
             ),
             child: Row(
               children: [
-                Text(
-                  widget.item.icon,
-                  style: const TextStyle(fontSize: 28),
-                ),
+                Text(widget.item.icon, style: const TextStyle(fontSize: 28)),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.item.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Text(widget.item.name, style: const TextStyle(fontSize: 18, color: Colors.white)),
                       const SizedBox(height: 6),
                       Text(
                         widget.item.available ? 'Available' : 'Out of stock',
                         style: TextStyle(
-                          color: widget.item.available
-                              ? AppColors.secondaryColor
-                              : Colors.redAccent,
+                          color: widget.item.available ? AppColors.secondaryColor : Colors.redAccent,
                           fontSize: 13,
                         ),
                       ),
                     ],
                   ),
                 ),
-                if (widget.item.selected)
-                  _QuantitySelector(item: widget.item),
+                if (widget.item.selected) _QuantitySelector(),
               ],
             ),
           ),
@@ -189,23 +168,19 @@ class _MenuItemTileState extends State<_MenuItemTile>
 }
 
 class _QuantitySelector extends StatelessWidget {
-  final MenuItemModel item;
-
-  const _QuantitySelector({required this.item});
-
+  final _controller = Get.find<CafeMenuController>();
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _QtyButton('-', () => item.quantity--),
+        _QtyButton('-', () => _controller.itemQuantity.value--),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(
-            item.quantity.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Obx((){
+            return Text(_controller.itemQuantity.value.toString(), style: const TextStyle(color: Colors.white));
+          }),
         ),
-        _QtyButton('+', () => item.quantity++),
+        _QtyButton('+', () => _controller.itemQuantity.value++),
       ],
     );
   }
@@ -217,42 +192,27 @@ class _QtyButton extends StatelessWidget {
 
   const _QtyButton(this.label, this.onTap);
 
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 30,
+        height: 30,
         padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+        decoration: BoxDecoration(color: AppColors.surfaceColor, borderRadius: BorderRadius.circular(8)),
+        child: Center(
+          child: Text(
+            label,
+            style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
   }
 }
 
-class _SubmitOrderButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
-        foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(vertical: 18),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-      ),
-      onPressed: () {},
-      child: const Text('Submit Order', style: TextStyle(fontSize: 18)),
-    );
-  }
-}
 
 class MenuItemModel {
   final String name;
@@ -263,4 +223,3 @@ class MenuItemModel {
 
   MenuItemModel(this.name, this.quantity, this.available, this.icon);
 }
-
