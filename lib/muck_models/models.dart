@@ -20,3 +20,6 @@ List<BackWash> backwashList = [
   BackWash('نوشتن لیست خرید', 'فرهاد حسینی', false, 'شنبه'),
   BackWash('تمیز کردن ماک باکس', 'فائزه امیری', true, 'شنبه'),
 ];
+
+
+final List<String> orders = ['لته', 'استیک', 'چای', 'اسپرسو'];

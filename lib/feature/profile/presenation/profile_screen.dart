@@ -26,65 +26,89 @@ class ProfileScreen extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
 
-            // profile
-             Column(
-                children: [
-                  CircleAvatar(radius: 55, backgroundImage: NetworkImage(AppConstants.img)),
-                  SizedBox(height: 10),
-                  Text(
-                    "Mahdi Daneshfar",
-                    style: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 5),
-                  Text("09121114455", style: TextStyle(color: AppColors.textSecondary)),
-                  SizedBox(height: 25),
-
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width,
-                    child: ElevatedButton(
-                      onPressed: () {Get.to(()=> EditProfileScreen());},
-                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
-                      child: Text('ویرایش پروفایل'),
+              // profile
+               Column(
+                  children: [
+                    CircleAvatar(radius: 55, backgroundImage: NetworkImage(AppConstants.img)),
+                    SizedBox(height: 10),
+                    Text(
+                      "Mahdi Daneshfar",
+                      style: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                  ),
+                    SizedBox(height: 5),
+                    Text("09121114455", style: TextStyle(color: AppColors.textSecondary)),
+                    SizedBox(height: 25),
+
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: ElevatedButton(
+                        onPressed: () {Get.to(()=> EditProfileScreen());},
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
+                        child: Text('ویرایش پروفایل'),
+                      ),
+                    ),
+
+                    SizedBox(height: 14,),
+
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.logout_outlined, color: Colors.red,),
+                            SizedBox(width: 10),
+                            Text('خروج از حساب', ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+
+
+                  ],
+                ),
+
+              const SizedBox(height: 25),
+
+              Row(
+                children: [
+                  AspectRatio,
                 ],
               ),
 
-            const SizedBox(height: 25),
-
-            ItemTile(
-              title: "اطلاعات کاربر",
-              subtitle: "توضیحاتی در مورد کاربر",
-              icon: Icons.person,
-              trailing: "جزئیات", onTap: () {  },
-            ),
-            SizedBox(height: 14,),
-
-            ItemTile(title: "نقش", subtitle: "باریستا", icon: Icons.badge, onTap: () {  },),
-            SizedBox(height: 14,),
-
-            // ItemTile(title: "Theme", subtitle: "", icon: Icons.dark_mode, switchButton: true),
-            SizedBox(height: 25),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.cardBackground),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.logout_outlined, color: Colors.red,),
-                    SizedBox(width: 10),
-                    Text('خروج از حساب', ),
-                  ],
-                ),
+              ItemTile(
+                title: "اطلاعات کاربر",
+                subtitle: "توضیحاتی در مورد کاربر",
+                icon: Icons.person,
+                trailing: "جزئیات", onTap: () {  },
               ),
-            ),
-          ],
+              SizedBox(height: 14,),
+
+              ItemTile(title: "نقش", subtitle: "باریستا", icon: Icons.badge, onTap: () {  },),
+              SizedBox(height: 14,),
+
+              ItemTile(
+                title: "روز آف",
+                subtitle: "چهارشنبه",
+                icon: Icons.calendar_month,
+                onTap: () {  },
+              ),
+
+
+
+              // ItemTile(title: "Theme", subtitle: "", icon: Icons.dark_mode, switchButton: true),
+              SizedBox(height: 25),
+
+            ],
+          ),
         ),
       ),
     );

@@ -13,9 +13,9 @@ class CafeMenuScreen extends StatelessWidget {
   CafeMenuScreen({super.key});
 
   final Map<String, List<MenuItemModel>> menu = {
-    'Hot Drinks': [MenuItemModel('Espresso', 1, true, '☕'), MenuItemModel('Latte', 1, true, '🥛')],
-    'Cold Drinks': [MenuItemModel('Iced Coffee', 1, false, '🧊'), MenuItemModel('Lemonade', 1, true, '🍋')],
-    'Food': [MenuItemModel('Burger', 1, true, '🍔'), MenuItemModel('Pasta', 1, false, '🍝')],
+    'نوشیدنی گرم': [MenuItemModel('اسپرسو', 1, true, '☕'), MenuItemModel('لته', 1, true, '🥛')],
+    'نوشیدنی سرد': [MenuItemModel('آیس کارامل ماکیاتو', 1, false, '🧊'), MenuItemModel('لیموناد', 1, true, '🍋')],
+    'غذا': [MenuItemModel('استیک', 1, true, '🍔'), MenuItemModel('پاستا پنه آلفردو', 1, false, '🍝')],
   };
 
   final _controller = Get.find<CafeMenuController>();

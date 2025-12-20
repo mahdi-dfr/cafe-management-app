@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../feature/home/presenation/controller/cafe_menu_controller.dart';
 import '../../feature/home/presenation/controller/home_controller.dart';
+import '../../feature/home/presenation/controller/order_controller.dart';
 
 class AppBindings extends Bindings{
   @override
@@ -16,6 +17,7 @@ class AppBindings extends Bindings{
     Get.lazyPut(()=> InventoryController(), fenix: true);
     Get.lazyPut(()=> CharterController(), fenix: true);
     Get.lazyPut(()=> CafeMenuController(), fenix: true);
+    Get.lazyPut(()=> OrderController(), fenix: true);
   }
 
 }

@@ -1,7 +1,14 @@
 import 'package:cafe_app/core/constants/app_colors.dart' show AppColors;
+import 'package:cafe_app/core/widgets/custom_text_field.dart';
 import 'package:cafe_app/feature/home/presenation/screen/orders/cafe_menu_screen.dart';
+import 'package:cafe_app/muck_models/models.dart';
 import 'package:cafe_app/muck_models/orders.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../../core/resource/route_management.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../controller/order_controller.dart';
 
 class CafeTablesScreen extends StatefulWidget {
   const CafeTablesScreen({super.key});
@@ -182,22 +189,23 @@ class OrdersScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: Text('Orders - Table ${table.number}'),
+        title: Text('سفارش های ثبت شده - میز ${table.number}' , style: TextStyle(fontSize: 18),),
         backgroundColor: AppColors.backgroundColor,
+      ),
+      bottomNavigationBar: CustomConfirmButton(
+        title: 'ویرایش سفارش',
+        onPressed: () {
+          Get.to(CafeMenuScreen());
+        },
+        textColor: AppColors.backgroundColor,
+        buttonColor: AppColors.primaryColor,
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: table.orders.length,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
         itemBuilder: (_, index) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.cardBackground,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Text(table.orders[index], style: const TextStyle(color: Colors.white, fontSize: 16)),
-          );
+          return OrderItemShow(order: orders[index]);
         },
       ),
     );
@@ -207,7 +215,9 @@ class OrdersScreen extends StatelessWidget {
 class CreateOrderScreen extends StatelessWidget {
   final TableModel table;
 
-  const CreateOrderScreen({super.key, required this.table});
+  CreateOrderScreen({super.key, required this.table});
+
+  final _controller = Get.find<OrderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -217,41 +227,118 @@ class CreateOrderScreen extends StatelessWidget {
         title: Text('سفارش جدید برای میز ${table.number}'),
         backgroundColor: AppColors.backgroundColor,
       ),
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryColor,
-            foregroundColor: Colors.black,
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          ),
-          onPressed: () {
+      bottomNavigationBar: CustomConfirmButton(
+        title: 'ثبت نهایی سفارش',
+        onPressed: () {
+          Get.back();
+        },
+        textColor: AppColors.backgroundColor,
+        buttonColor: AppColors.primaryColor,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomTextField(
+              controller: _controller.guestName,
+              label: 'نام و نام خانوادگی مهمان',
+              icon: Icons.person,
+              iconColor: AppColors.secondaryColor,
+              fillColor: AppColors.cardBackground,
+              borderColor: AppColors.primaryColor,
+            ),
 
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context)=> CafeMenuScreen())
-            );
+            SizedBox(height: 20),
 
+            CustomTextField(
+              controller: _controller.guestNumber,
+              label: 'شماره تماس مهمان',
+              icon: Icons.phone,
+              iconColor: AppColors.secondaryColor,
+              fillColor: AppColors.cardBackground,
+              keyboardType: TextInputType.phone,
+              borderColor: AppColors.primaryColor,
+            ),
 
+            SizedBox(height: 50),
 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'سفارش ها',
+                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+                ),
 
+                IconButton(
+                  onPressed: () {
+                    Get.to(CafeMenuScreen());
+                  },
+                  icon: Row(
+                    children: [
+                      Icon(Icons.add, color: AppColors.secondaryColor),
+                      Text(
+                        'اضافه کردن سفارش',
+                        style: TextStyle(
+                          color: AppColors.secondaryColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
 
+            SizedBox(height: 20),
 
-
-            // Navigator.of(context).push(
-            //   PageRouteBuilder(
-            //     transitionDuration: const Duration(milliseconds: 600),
-            //     pageBuilder: (_, animation, __) => FadeTransition(
-            //       opacity: animation,
-            //       child: table.isOccupied ? OrdersScreen(table: table) : CreateOrderScreen(table: table),
-            //     ),
-            //   ),
-            // );
-          },
-          child: const Text('Add Items'),
+            Expanded(
+              child: ListView.separated(
+                itemBuilder: (_, index) {
+                  return OrderItemShow(order: orders[index]);
+                },
+                separatorBuilder: (_, index) {
+                  return SizedBox(height: 20);
+                },
+                itemCount: orders.length,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
+class OrderItemShow extends StatelessWidget {
+  const OrderItemShow({super.key, required this.order});
 
+  final String order;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.fastfood_sharp, color: AppColors.secondaryColor),
+              SizedBox(width: 10),
+              Text( order, style: const TextStyle(color: Colors.white, fontSize: 16)),
+            ],
+          ),
+          Text('تعداد: 1', style: const TextStyle(color: Colors.white, fontSize: 14)),
+        ],
+      ),
+    );
+  }
+}
