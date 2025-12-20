@@ -148,7 +148,7 @@ class _MenuItemTileState extends State<_MenuItemTile> with SingleTickerProviderS
                       Text(widget.item.name, style: const TextStyle(fontSize: 18, color: Colors.white)),
                       const SizedBox(height: 6),
                       Text(
-                        widget.item.available ? 'Available' : 'Out of stock',
+                        widget.item.available ? 'موجود' : 'اتمام موجودی',
                         style: TextStyle(
                           color: widget.item.available ? AppColors.secondaryColor : Colors.redAccent,
                           fontSize: 13,

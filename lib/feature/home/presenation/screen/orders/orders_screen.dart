@@ -193,7 +193,7 @@ class OrdersScreen extends StatelessWidget {
         backgroundColor: AppColors.backgroundColor,
       ),
       bottomNavigationBar: CustomConfirmButton(
-        title: 'ویرایش سفارش',
+        title: 'ویرایش سفارش ها',
         onPressed: () {
           Get.to(CafeMenuScreen());
         },
